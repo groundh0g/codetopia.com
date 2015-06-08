@@ -6,7 +6,7 @@ navAboutClass: active
 ---
 {% include JB/setup %}
 
-## Who the #%&amp;@* is Joe?
+## Who the Heck is Joe?
 
 <hr/>
 
