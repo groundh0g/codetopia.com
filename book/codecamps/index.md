@@ -29,12 +29,28 @@ If you're the kind of person that likes statistics, here's the current status of
 {% assign chapterCount = 0 %}
 
 <p><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20px;">
-<tr><td><b>TITLE</b></td><td>&nbsp;&nbsp;<b>WORDS</b></td><td>&nbsp;&nbsp;<b>STATUS</b></td></tr>
+<tr><td><b>TITLE</b></td><td>&nbsp;&nbsp;<b>WORDS</b></td><td>&nbsp;&nbsp;<b>STATUS</b></td><td>&nbsp;&nbsp; <b>UPDATED</b></td></tr>
 {% for pg in site.pages %}
     {% if pg.layout == 'book' %}
       {% if pg.url == page.url %}
         {% comment %}Ignore this page in stats.{% endcomment %}
       {% elsif pg.url contains 'codecamps/c' %}
+        {% assign reviewedOn = 2015-01-01 %}
+        {% if pg.lastReviewedOn %}
+          {% assign reviewedOn = pg.lastReviewedOn %}
+        {% else %}
+          {% assign reviewedOn = site.lastReviewedOn %}
+        {% endif %}
+        
+        {% assign recentReview = false %}
+        {% assign nowNumber = 'now' | date: '%s' | plus: 0 %}
+        {% assign updNumber = reviewedOn | date: '%s' | plus: 604800 %}
+        {% assign difNumber = updNumber | minus: nowNumber%}
+        {% if difNumber > 0 %}
+            {% assign recentReview = true %}
+        {% endif %}
+        
+
         {% assign newCount = pg.content | number_of_words %}
         {% assign wordCount = wordCount | plus: newCount %}
         {% assign chapterCount = chapterCount | plus: 1 %}
@@ -44,11 +60,20 @@ If you're the kind of person that likes statistics, here's the current status of
             <td><a href="{{ pg.url }}"><b>{{ pg.title }}</b> <small>{{ pg.tagline }}</small></a></td>
             <td>&nbsp;&nbsp;{{ newCount }}</td>
             <td>&nbsp;&nbsp;{{ pageStatus }}</td>
+            <td>&nbsp;&nbsp;
+                {% if recentReview %}
+                  <i>
+                {% endif %}
+                {{ reviewedOn | date: '%B %d, %Y' }}
+                {% if recentReview %}
+                  (new)</i>
+                {% endif %}
+            </td>
          </tr>
       {% endif %}
     {% endif %}
 {% endfor %}
-<tr><td style="text-align:right;"><b>TOTAL:</b>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;{{ wordCount }}</td><td>&nbsp;</td></tr>
+<tr><td style="text-align:right;"><b>TOTAL:</b>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;{{ wordCount }}</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table></p>
 
 ### Support the Project
