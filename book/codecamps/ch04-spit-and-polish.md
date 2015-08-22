@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 4"
 tagline: "Spit and Polish"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 4: Spit and Polish
 
 ## Overview
 

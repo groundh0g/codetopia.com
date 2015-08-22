@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 11"
 tagline: "Author's Choice - Tower Defense"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 10: Class 2014, Tower Defense
 
 ## Overview
 

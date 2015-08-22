@@ -7,8 +7,6 @@ tags : []
 ---
 {% include JB/setup %}
 
-# Chapter 16: Odds and Ends, Collision Detection
-
 ## Overview
 
 Nothing irritates players more than thinking that they hit an opponent and the hit doesn't register, or thinking that they dodged a bullet only to find that they've lost a life. For most game programming tasks, ''close enough'' is perfectly fine. Collision detection isn't one of those tasks, though.

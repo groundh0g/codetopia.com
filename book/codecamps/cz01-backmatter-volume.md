@@ -4,6 +4,7 @@ category : book-codecamps
 title: "Afterword"
 tagline: "the Volume"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
 

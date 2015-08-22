@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 13"
 tagline: "Author's Choice - Puzzle"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 12: Author's Choice, Puzzle
 
 ## Overview
 

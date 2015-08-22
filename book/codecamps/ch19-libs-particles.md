@@ -7,8 +7,6 @@ tags : []
 ---
 {% include JB/setup %}
 
-# Chapter 17: Odds and Ends, Particles
-
 ## Overview
 
 Individual particles are usually rather insignificant. But collectively, particles can be used to great effect, with minimal resource consumption.

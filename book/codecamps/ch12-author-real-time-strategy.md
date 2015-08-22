@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 12"
 tagline: "Author's Choice - Real-Time Strategy"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 11: Class 2015, Real-Time Strategy
 
 ## Overview
 

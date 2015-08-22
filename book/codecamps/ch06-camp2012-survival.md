@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 6"
 tagline: "Camp 2012 - Survival"
 tags : []
+status: [stub]
 ---
 {% include JB/setup %}
-
-# Chapter 6: Camp 2012, Survival
 
 ## Overview
 

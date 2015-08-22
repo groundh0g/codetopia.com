@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 14"
 tagline: "Author's Choice - Artificial Intelligence"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 13: Author's Choice, Artificial Intelligence
 
 ## Overview
 

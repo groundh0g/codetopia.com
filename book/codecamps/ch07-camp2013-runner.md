@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 7"
 tagline: "Camp 2013 - Runner"
 tags : []
+status: [stub]
 ---
 {% include JB/setup %}
-
-# Chapter 7: Camp 2013, Runner
 
 ## Overview
 

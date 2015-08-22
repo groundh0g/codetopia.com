@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 17"
 tagline: "Libraries - TouchPanelEx"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 15: Odds and Ends, TouchPanelEx
 
 ## Overview
 

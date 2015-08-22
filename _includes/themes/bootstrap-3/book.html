@@ -1,31 +1,47 @@
+{% assign isDraft = false %}
+{% if page.status %}
+  {% if page.status contains 'draft' %}
+    {% assign isDraft = true %}
+  {% endif %}
+{% elsif site.status contains 'draft' %}
+    {% assign isDraft = true %}
+{% endif %}
+
+{% assign lastReviewedDate = 2015-08-19 %}
+{% if page.lastReviewedOn %}
+  {% assign lastReviewedDate = page.lastReviewedOn %}
+{% else %}
+  {% assign lastReviewedDate = site.lastReviewedOn %}
+{% endif %}
+
+{% if isDraft %}
+<div class="alert alert-success"><h2><i class="glyphicon glyphicon-pencil"></i> Draft Content</h2><p>The following text, diagrams, and code samples have not been through any form of formal grooming (e.g. editing or technical review). It may contain content that is inaccurate. You may find errors or inconsistencies. If you would like to report a potential issue with this text, please <a href="https://github.com/groundh0g/codecamps-book/issues" target="_blank">click here</a>. Your help is most appreciated!</p>
+{% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
+</div>
+<hr />
+{% endif %}
+
+{% if page.status contains 'placeholder' %}
+<div class="alert alert-success"><h2><i class="glyphicon glyphicon-warning-sign"></i> Placeholder Content</h2><p>The following content is just a placeholder.</p>
+{% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
+</div>
+<hr />
+{% endif %}
+
+{% if page.status contains 'stub' %}
+<div class="alert alert-success"><h2><i class="glyphicon glyphicon-inbox"></i> Stub Content</h2><p>The following content is just a stub. Some of the content may appear to be ready for prime time, but the text and images are likely to change as I make more and more passes through the chapter.</p>
+{% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
+</div>
+<hr />
+{% endif %}
+
 <div class="page-header">
   <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
 </div>
 
-<div class="row post-full">
-  <div class="col-xs-12">
-    <div class="date">
-      <span>{{ page.date | date_to_long_string }}</span>
-    </div>
-    <div class="content">
-      {{ content }}
-    </div>
-
-    <hr>
-    <ul class="pagination">
-    {% if page.previous %}
-      <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&laquo; Previous</a></li>
-    {% else %}
-      <li class="prev disabled"><a>&larr; Previous</a></li>
-    {% endif %}
-      <li><a href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a></li>
-    {% if page.next %}
-      <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &raquo;</a></li>
-    {% else %}
-      <li class="next disabled"><a>Next &rarr;</a>
-    {% endif %}
-    </ul>
-    <hr>
-    {% include JB/comments %}
-  </div>
+<div class="content">
+  {{ content }}
 </div>
+
+<hr>
+{% include JB/comments %}

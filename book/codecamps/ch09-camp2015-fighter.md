@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 9"
 tagline: "Camp 2015 - Fighter"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 8: Camp 2014, Castle Crawler
 
 ## Overview
 

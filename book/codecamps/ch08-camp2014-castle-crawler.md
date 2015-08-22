@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 8"
 tagline: "Camp 2014 - Castle Crawler"
 tags : []
+status: [stub]
 ---
 {% include JB/setup %}
-
-# Chapter 8: Camp 2014, Castle Crawler
 
 ## Overview
 

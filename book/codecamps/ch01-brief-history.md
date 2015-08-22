@@ -7,8 +7,6 @@ tags : []
 ---
 {% include JB/setup %}
 
-# Chapter 1: A Brief History
-
 ## Overview
 
 This chapter provides a good overview of the technologies upon which MonoGame is based. MonoGame, Xamarin Studio, Visual Studio, DirectX, OpenGL, Mono, and the .NET Common Language Runtime (CLR) are introduced, and each component’s role in the game development process is described, along with its history.

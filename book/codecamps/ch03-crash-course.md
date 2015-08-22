@@ -7,8 +7,6 @@ tags : []
 ---
 {% include JB/setup %}
 
-# Chapter 3: Crash Course
-
 ## Overview
 
 This chapter presents the bare minimum that you need to know to understand the chapters that follow. If you would like to dive deeper into the concepts of programming, there are many good references out there. And, as always, google is a newbie's best friend.

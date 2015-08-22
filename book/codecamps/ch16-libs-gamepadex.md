@@ -7,8 +7,6 @@ tags : []
 ---
 {% include JB/setup %}
 
-# Chapter 14: Odds and Ends, GamePadEx
-
 ## Overview
 
 The mouse, keyboard, touchscreens, and game pads are very different devices, each requiring specialized code. There are times when it would be nice to play a game without hooking up a controller. But you don't want to write code to support multiple devices every time you start a game project. Besides, some of the folks who want to play your game may not have a controller hooked up to their PC.

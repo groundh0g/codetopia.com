@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 5"
 tagline: "Camp 2011 - Side Scroller"
 tags : []
+status: [stub]
 ---
 {% include JB/setup %}
-
-# Chapter 5: Camp 2011, Side Scroller
 
 ## Overview
 

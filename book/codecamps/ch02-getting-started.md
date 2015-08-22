@@ -7,8 +7,6 @@ tags : []
 ---
 {% include JB/setup %}
 
-# Chapter 2: Your Development PC
-
 ## Overview
 
 This book is based on my work with the kids at camp. And, at camp, we only have five days of class time to conceive and build a working game. Most of the students have no prior experience with programming. 

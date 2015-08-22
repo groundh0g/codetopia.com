@@ -4,6 +4,7 @@ category : book-codecamps
 title: "Afterword"
 tagline: "the Series"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
 

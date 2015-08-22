@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 10"
 tagline: "Class 2013 - Platformer"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 9: Class 2013, Platformer
 
 ## Overview
 

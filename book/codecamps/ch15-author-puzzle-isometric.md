@@ -4,10 +4,9 @@ category : book-codecamps
 title: "Chapter 15"
 tagline: "Author's Choice - Isometric Puzzle"
 tags : []
+status: [placeholder]
 ---
 {% include JB/setup %}
-
-# Chapter 13: Author's Choice, Artificial Intelligence
 
 ## Overview
 
