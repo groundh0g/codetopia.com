@@ -5,43 +5,32 @@ title: "Chapter 9"
 tagline: "Camp 2015 - Fighter"
 tags : []
 status: [placeholder]
+lastReviewedOn: "2015-08-22 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Landry Academy's Computer Camp 2014 had ten students - from CA, FL, GA, IL, LA, MD, PA, TX, and Mexico. Most had never touched a compiler before this class.
+Landry Academy's Computer Camp 2015 had 15 students. Most had never touched a compiler before this class.
 
-![The 2014 Campers](images/camp2014students.jpg)
+![The 2015 Campers](images/camp2015students.jpg)
 
-On the first day, we spent several hours installing the tools that we needed to create games. We had a brainstorming session during that time to plan what type of game we would build. The class zeroed in on a side-scrolling smash'em up, similar to _Castle Crashers_. The design supports one to four players.
+The largest group yet, and (IMO) the best game yet. On the first day, we brainstormed close to a dozen game ideas. After a little back and forth, we settled on a fighting game which pits camp counselors against each other. Since there are so many counselors, with few distinguishing features, it was decided that art would be a problem. So we move to the idea of having teachers battle each other. After saying it out loud, we realized that might not be a great idea either. We then decided that we would have robots fight to the death for our amusement.
 
-The players are aliens who are spooked and run into a haunted house. The group works their way through the house, battling all sorts of baddies.
+We settled on placeholder art featuring vikings — and that's what we ended up using for Friday's demonstration.
 
-The game's art is a mix of characters and monsters from Kenney's assets.
+![The 2015 Camp's Game](images/camp2015game.png)
 
-![The 2014 Camp's Game](images/camp2014game.png)
+We actually finished the game by Thursday (the night before the demo) and had time to squash some bugs, add some bells and whistles, and even have a tournament on the last day of camp to see which student would present our creation to the other campers. (*Spoiler alert: It was LaMia!*)
 
-Unfortunately, as is the case with such tight deadlines, so many features were trimmed from the game that it became less a castle crawler and more of a survival game. The players remain in the starting room as baddies keep coming to them. We also didn't have time to implement a boss screen, as originally planned.
+The end result was a game that could easily be published to one of the many app stores. I'm proud of the work that the students did. Their creativity and willingness to follow through on the implementation made this one of the most enjoyable weeks of camp for me.
 
-There is no player select screen. The controller you're using dictates which character you play. And however many controllers are plugged in (one to four, as limited by XNA) dictates how many avatars appear in the game.
-
-To balance the game for a varying number of players, a single player gets four hits before death, two players get three hits, three players get two hits, and if there are four players, each may only receive one hit before they are removed from the game.
-
-The 2014 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2014/
+The 2015 Camp game can be downloaded from the following URL:    
+http://camps.moreoncode.com/Camp2015/
 
 ## Our Game
 
-Now that we have more time, we'll build the game that the students wanted to build in the first place. The fact that we were able to trim some features and easily build a different game type should show you how similar a castle crawler and a survival game can be. In fact, a survival game is actually one component of a castle crawler.
-
-![The parts of a castle crawler.](images/figure08-01_DungeonCrawlerConcept.png)
-
-The gameplay is fairly formulaic. Players move through the castle, killing baddies and collecting rewards. Every now and then, they're stopped in their tracks by a horde of enemies that attack from both sides. Once the invaders are defeated, the players continue their journey through the castle.
-
-At the level's climax, the players encounter a new, more powerful enemy. This is the boss screen. There may be some minions that come to the aid of their leader, but the primary goal of this part of the game is to defeat the boss.
-
-As you can see in the concept sketch, step two ("Battle Hordes") is a survival game, but with an achievable end. The baddies don't keep attacking forever. Even though it may feel that way in the heat of battle.
+Blah. Blah. Blah. Blah. Blah.
 
 ## Summary
 
