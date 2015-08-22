@@ -13,7 +13,7 @@ On August 21, 2015, [I tweeted](https://twitter.com/groundh0g/status/63458930833
 
 > Decision made. New #gamedev / #indiedev @MonoGameTeam book will be written in public view, hosted on @github pages.
 
-It's a scary proposition for me, but exciting at the same time. I'm used to working in a vacuum, dumping the resulting work into the wild at the end of the process. My current setup allows for official bug reports via [GitHub issues](https://github.com/groundh0g/codecamps-book/issues), or via Facebook comments at the bottom of each chapter.
+It's a scary proposition for me, but exciting at the same time. I'm used to writing in a vacuum, dumping the resulting work into the wild at the end of the process. My current setup allows for official bug reports via [GitHub issues](https://github.com/groundh0g/codecamps-book/issues), or via Facebook comments at the bottom of each chapter.
 
 ### My Motivation
 
