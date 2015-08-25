@@ -5,7 +5,7 @@ title: "Chapter 10"
 tagline: "Class 2013 - Platformer"
 tags : []
 status: [stub]
-lastReviewedOn: "2015-08-24 00:00:00 -0500"
+lastReviewedOn: "2015-08-25 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -15,7 +15,7 @@ In late 2012, I decided that I had put off working with my middle girl, Abby, to
 
 ![The 2013 Class](images/class2013students.jpg)
 
-The class was a group of 13 teens and tweens. Abby's in the middle of the bunch in that photo, staring at the ground. I'm the handsome devil with the manly beard on the right. This was the largest group of students that I had taught at the time. Best of all, it was my largest percentage of female developers. Including Abby, there were four girls. Sadly, Many couldn't make it for the photo shoot.
+The class was a group of 13 teens and tweens. Abby's in the middle of the bunch in that photo, staring at the ground. I'm the handsome devil with the manly beard on the right. This was the largest group of students that I had taught at the time. Best of all, it was my largest percentage of female developers. Including Abby, there were four girls. Sadly, much of the gang couldn't make it for the photo shoot.
 
 I tried applying my camp format to the class, and it wound up being a really bad fit. Whereas the camp is a full, uninterrupted week of 5 - 6 hour days, the class met weekly for two hours, and I never set a deadline. Remember, my goal was to spend more time with the rugrat. I didn't have an exit strategy. The class met for almost a year before we called it quits. We never achieved our goal of making a platformer, but we did make several example games in our time together, and the students did learn a good bit about game programming.
 

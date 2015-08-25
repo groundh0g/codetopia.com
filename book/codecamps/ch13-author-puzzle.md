@@ -4,13 +4,14 @@ category : book-codecamps
 title: "Chapter 13"
 tagline: "Author's Choice - Puzzle"
 tags : []
-status: [placeholder]
+status: [stub]
+lastReviewedOn: "2015-08-25 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Most game genres have a fairly narrow demographic to which they appeal. Typically, that demographic is young males. Puzzle games are one of those rare categories of games that cross gender and age barriers. Their simple, yet addictive game play seduces the casual gamer and the hard-core gamer alike. They even appeal to many people who wouldn’t consider themselves ‘‘gamers’’ at all. With a focus on problem solving, and having their roots in logic and math, puzzle games prove that simple games can be fun, even without a multi-million-dollar development budget or a big-name intellectual property license.
+Most game genres have a fairly narrow demographic to which they appeal. Typically, that demographic is young males. Puzzle games are one of those rare categories of games that cross gender and age barriers. Their simple, yet addictive game play seduces the casual gamer and the hard-core gamer alike. They even appeal to many people who wouldn’t consider themselves "gamers" at all. With a focus on problem solving, and having their roots in logic and math, puzzle games prove that simple games can be fun, even without a multi-million-dollar development budget or a big-name intellectual property license.
 
 By far, the most popular title in this genre is *Tetris*, created by Russian mathematician Alexey Pajitnov (Pazhitnov) in 1985. *Tetris*, and the many clones and variants that it has inspired, has found its way onto nearly every platform imaginable. Most recently, puzzle games have found new life on smartphones, introducing many people who may otherwise never have been exposed to their addictive game play. And a new generation of puzzle games like *Bejeweled*, *Candy Crush Saga*, *Cut the Rope*, and *Flow* are doing their part to entice new players with this genre’s broad appeal.
 
