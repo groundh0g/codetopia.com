@@ -4,30 +4,35 @@ category : book-codecamps
 title: "Chapter 10"
 tagline: "Class 2013 - Platformer"
 tags : []
-status: [placeholder]
+status: [stub]
+lastReviewedOn: "2015-08-24 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Landry Academy's Computer Camp 2011 had seven students, ages 13 to 17, most of whom had never touched a compiler before this class. It was a great bunch of kids!
+In late 2012, I decided that I had put off working with my middle girl, Abby, too long. She showed an interest in programming at an early age, and she had progressed enough in her language and math skills that I felt it was time to get started. I came up with a plan that would force me to stick to a routine - I would include my coworkers' kids. With the structure of a class setting, and a regular schedule where others depended on me, I was sure to fulfill my fatherly duties. Right? ... Not so much.
 
 ![The 2013 Class](images/class2013students.jpg)
 
-They had a contagious passion that made the insane deadline (4 days from concept to demo) achievable. During almost every block of time that the camp had scheduled free-time for the kids, you'd find them in the classroom, hard at work on the project.
+The class was a group of 13 teens and tweens. Abby's in the middle of the bunch in that photo, staring at the ground. I'm the handsome devil with the manly beard on the right. This was the largest group of students that I had taught at the time. Best of all, it was my largest percentage of female developers. Including Abby, there were four girls. Sadly, Many couldn't make it for the photo shoot.
 
-On the first day, we spent several hours installing the tools that we needed to create games. We had a brainstorming session that evening to plan what type of game we would build. The class was fairly evenly split between a scrolling shooter (like _Defender_ or _1942_) or an _Angry Birds_ clone. We ultimately decided on an original game that combined the two concepts.
+I tried applying my camp format to the class, and it wound up being a really bad fit. Whereas the camp is a full, uninterrupted week of 5 - 6 hour days, the class met weekly for two hours, and I never set a deadline. Remember, my goal was to spend more time with the rugrat. I didn't have an exit strategy. The class met for almost a year before we called it quits. We never achieved our goal of making a platformer, but we did make several example games in our time together, and the students did learn a good bit about game programming.
 
-Four birds (controlled by four players) fly along, shooting pigs with seeds and dropping eggs on them. There are three types of pigs: normal pigs (on the ground and in trees), pig-a-troopers (who parachute in), and the king pig (who tosses baby pigs at you).
+## Postmortem
 
-The game's art is a mix of characters from the Angry Birds game, random images we found via Google searches, and some hills that were drawn the night before we gave our class presentation to the students from the other academic areas.
+This group was full of ideas and features. A couple of students shanghaied the brainstorming process and steered the class into a platformer about a furry hero called, *Monkey Man 3000*. They had an incredible passion for the project, and put in the effort every week. Unfortunately, my inexperience with managing a group of that size led to an inefficient use of the short two hours we had together each week. Chatter consumed a good chunk of our time, but a couple of parents were always on site to help me wrangle the cats when needed.
+
+Many months into the project, it was clear that Abby wasn't enjoying the class. She wanted to spend time with her dad - not compete with others, to have only a small fraction of his attention. I reluctantly let her drop out, but I wasn't about to just call it quits. The class continued for many more months before I announced the end of the experiment.
+
+## From the Ashes
+
+This chapter is dedicated to the students of my first class outside of the annual camps. I regret my inexperience, but value the opportunity it afforded me. The kids seemed happy, even though we hadn't reached our goal of a complete game (well, **the** complete game, *MM3K*), but I'll always see the endeavor as a failure on my part.
+
+So, let's make a platformer!
 
 ![The 2013 Class' Game](images/class2013game.png)
 
-All the in-game sound effects were created by the students. I think the effects came out great, and I think they really add a lot to the final game. The music was downloaded from the website of a talented composer who recreated the Angry Birds theme in Garage Band.
-
-The 2014 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2014/
 
 ## Our Game
 

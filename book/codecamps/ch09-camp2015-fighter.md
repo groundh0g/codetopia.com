@@ -4,7 +4,7 @@ category : book-codecamps
 title: "Chapter 9"
 tagline: "Camp 2015 - Fighter"
 tags : []
-status: [placeholder]
+status: [stub]
 lastReviewedOn: "2015-08-22 00:00:00 -0500"
 ---
 {% include JB/setup %}
