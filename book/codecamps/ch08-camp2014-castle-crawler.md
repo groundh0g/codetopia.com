@@ -5,14 +5,15 @@ title: "Chapter 8"
 tagline: "Camp 2014 - Castle Crawler"
 tags : []
 status: [stub]
+lastReviewedOn: "2015-08-25 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Landry Academy's Computer Camp 2014 had ten students - from CA, FL, GA, IL, LA, MD, PA, TX, and Mexico. Most had never touched a compiler before this class.
-
 ![The 2014 Campers](images/camp2014students.jpg)
+
+Landry Academy's Computer Camp 2014 had ten students - from CA, FL, GA, IL, LA, MD, PA, TX, and Mexico. Most had never touched a compiler before this class.
 
 On the first day, we spent several hours installing the tools that we needed to create games. We had a brainstorming session during that time to plan what type of game we would build. The class zeroed in on a side-scrolling smash'em up, similar to _Castle Crashers_. The design supports one to four players.
 
@@ -20,16 +21,19 @@ The players are aliens who are spooked and run into a haunted house. The group w
 
 The game's art is a mix of characters and monsters from Kenney's assets.
 
-![The 2014 Camp's Game](images/camp2014game.png)
-
 Unfortunately, as is the case with such tight deadlines, so many features were trimmed from the game that it became less a castle crawler and more of a survival game. The players remain in the starting room as baddies keep coming to them. We also didn't have time to implement a boss screen, as originally planned.
 
 There is no player select screen. The controller you're using dictates which character you play. And however many controllers are plugged in (one to four, as limited by XNA) dictates how many avatars appear in the game.
 
 To balance the game for a varying number of players, a single player gets four hits before death, two players get three hits, three players get two hits, and if there are four players, each may only receive one hit before they are removed from the game.
 
+The game's art is a selection of characters from Kenny's public domain assets.
+
+![The 2014 Camp's Game](images/camp2014game.png)
+
 The 2014 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2014/
+
+`http://camps.moreoncode.com/Camp2014/`
 
 ## Our Game
 

@@ -5,14 +5,15 @@ title: "Chapter 5"
 tagline: "Camp 2011 - Side Scroller"
 tags : []
 status: [stub]
+lastReviewedOn: "2015-08-25 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Landry Academy's Computer Camp 2011 had seven students, ages 13 to 17, most of whom had never touched a compiler before this class. It was a great bunch of kids!
-
 ![The 2011 Campers](images/camp2011students.jpg)
+
+Landry Academy's Computer Camp 2011 had seven students, ages 13 to 17, most of whom had never touched a compiler before this class. It was a great bunch of kids!
 
 They had a contagious passion that made the insane deadline (4 days from concept to demo) achievable. During almost every block of time that the camp had scheduled free-time for the kids, you'd find them in the classroom, hard at work on the project.
 
@@ -22,12 +23,13 @@ Four birds (controlled by four players) fly along, shooting pigs with seeds and 
 
 The game's art is a mix of characters from the Angry Birds game, random images we found via Google searches, and some hills that were drawn the night before we gave our class presentation to the students from the other academic areas.
 
-![The 2011 Camp's Game](images/camp2011game.png)
-
 The students created all the in-game sound effects. I think the effects came out great, and I think they really add a lot to the final game. The music was downloaded from the website of a talented composer who recreated the Angry Birds theme in Garage Band.
 
-The 2011 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2011/
+![The 2011 Camp's Game](images/camp2011game.png)
+
+The 2011 Camp game can be downloaded from the following URL:
+
+`http://camps.moreoncode.com/Camp2011/`
 
 ## Our Game
 

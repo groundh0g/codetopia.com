@@ -5,14 +5,15 @@ title: "Chapter 6"
 tagline: "Camp 2012 - Survival"
 tags : []
 status: [stub]
+lastReviewedOn: "2015-08-25 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Landry Academy's Computer Camp 2012 had five students, ages 15 and 16, many of whom had never touched a compiler before this class.
-
 ![The 2012 Campers](images/camp2012students.jpg)
+
+Landry Academy's Computer Camp 2012 had five students, ages 15 and 16, many of whom had never touched a compiler before this class.
 
 On the first day, we spent several hours installing the tools that we needed to create games. We had a brainstorming session while we waited for the installers to do their magic, planning what type of game we would build. I was campaigning for a _Rock Band_ / _Guitar Hero_ style game, but the class decided to design a platformer game (ala _Super Mario Bros._).
 
@@ -20,12 +21,13 @@ A cartoony hero walks around a factory / lab complex jumping on the heads of kil
 
 The game's art is a collection of doodles that I did in Adobe Illustrator, feverishly churning out assets each evening in an attempt to stay a step ahead of the class. The main character is the result of a tutorial that I followed over at idleworm.com.
 
-![The 2012 Camp's Game](images/camp2012game.png)
-
 The plan to make a platformer turned out to be too much work for a week-long project. We cut features, and ultimately decided to turn the project into a survival game.
 
-The 2012 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2012/
+![The 2012 Camp's Game](images/camp2012game.png)
+
+The 2012 Camp game can be downloaded from the following URL: 
+
+`http://camps.moreoncode.com/Camp2012/`
 
 ## Our Game
 

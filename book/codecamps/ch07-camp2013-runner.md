@@ -5,14 +5,15 @@ title: "Chapter 7"
 tagline: "Camp 2013 - Runner"
 tags : []
 status: [stub]
+lastReviewedOn: "2015-08-25 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
 ## Overview
 
-Landry Academy's Computer Camp 2013 had five students, none of whom had used a compiler before this class.
-
 ![The 2013 Campers](images/camp2013students.jpg)
+
+Landry Academy's Computer Camp 2013 had five students, none of whom had used a compiler before this class.
 
 On the first day, I typically have a brainstorming session with the students while the tools are installing. With past classes, we compile a list of game genres that we might like to explore, come to a consensus on which to implement, then dive deeper into the details of the selected game.
 
@@ -20,14 +21,15 @@ This year, the students gravitated immediately to a concept based loosely on _Te
 
 This year, in addition to art I created and images we scavenged from the web, we took video of one of the camp counselors in several poses, including a slow motion roll. The students cut the images from the still frames of the video, and the counselor (_hi, Tim!_) was our game's main character.
 
-![The 2013 Camp's Game](images/camp2013game.png)
-
 The game supports two players, each of which has to run an identical gauntlet of obstacles. The player that makes it the furthest distance before losing three health points is the winner.
 
 The original design included power-ups and more elaborate obstacles. In the end, we realized that the full game would to be too much work for a week-long project. We cut features, but the end result was still a very nice game.
 
-The 2013 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2013/
+![The 2013 Camp's Game](images/camp2013game.png)
+
+The 2013 Camp game can be downloaded from the following URL: 
+
+`http://camps.moreoncode.com/Camp2013/`
 
 ## Our Game
 

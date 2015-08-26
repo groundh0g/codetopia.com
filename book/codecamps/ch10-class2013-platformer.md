@@ -11,9 +11,9 @@ lastReviewedOn: "2015-08-25 00:00:00 -0500"
 
 ## Overview
 
-In late 2012, I decided that I had put off working with my middle girl, Abby, too long. She showed an interest in programming at an early age, and she had progressed enough in her language and math skills that I felt it was time to get started. I came up with a plan that would force me to stick to a routine - I would include my coworkers' kids. With the structure of a class setting, and a regular schedule where others depended on me, I was sure to fulfill my fatherly duties. Right? ... Not so much.
-
 ![The 2013 Class](images/class2013students.jpg)
+
+In late 2012, I decided that I had put off working with my middle girl, Abby, too long. She showed an interest in programming at an early age, and she had progressed enough in her language and math skills that I felt it was time to get started. I came up with a plan that would force me to stick to a routine - I would include my coworkers' kids. With the structure of a class setting, and a regular schedule where others depended on me, I was sure to fulfill my fatherly duties. Right? ... Not so much.
 
 The class was a group of 13 teens and tweens. Abby's in the middle of the bunch in that photo, staring at the ground. I'm the handsome devil with the manly beard on the right. This was the largest group of students that I had taught at the time. Best of all, it was my largest percentage of female developers. Including Abby, there were four girls. Sadly, much of the gang couldn't make it for the photo shoot.
 
@@ -30,9 +30,6 @@ Many months into the project, it was clear that Abby wasn't enjoying the class. 
 This chapter is dedicated to the students of my first class outside of the annual camps. I regret my inexperience, but value the opportunity it afforded me. The kids seemed happy, even though we hadn't reached our goal of a complete game (well, **the** complete game, *MM3K*), but I'll always see the endeavor as a failure on my part.
 
 So, let's make a platformer!
-
-![The 2013 Class' Game](images/class2013game.png)
-
 
 ## Our Game
 

@@ -10,24 +10,7 @@ status: [placeholder]
 
 ## Overview
 
-Landry Academy's Computer Camp 2011 had seven students, ages 13 to 17, most of whom had never touched a compiler before this class. It was a great bunch of kids!
-
-![The 2014 Class](images/class2014students.png)
-
-They had a contagious passion that made the insane deadline (4 days from concept to demo) achievable. During almost every block of time that the camp had scheduled free-time for the kids, you'd find them in the classroom, hard at work on the project.
-
-On the first day, we spent several hours installing the tools that we needed to create games. We had a brainstorming session that evening to plan what type of game we would build. The class was fairly evenly split between a scrolling shooter (like _Defender_ or _1942_) or an _Angry Birds_ clone. We ultimately decided on an original game that combined the two concepts.
-
-Four birds (controlled by four players) fly along, shooting pigs with seeds and dropping eggs on them. There are three types of pigs: normal pigs (on the ground and in trees), pig-a-troopers (who parachute in), and the king pig (who tosses baby pigs at you).
-
-The game's art is a mix of characters from the Angry Birds game, random images we found via Google searches, and some hills that were drawn the night before we gave our class presentation to the students from the other academic areas.
-
-![The 2014 Class' Game](images/class2014game.png)
-
-All the in-game sound effects were created by the students. I think the effects came out great, and I think they really add a lot to the final game. The music was downloaded from the website of a talented composer who recreated the Angry Birds theme in Garage Band.
-
-The 2011 Camp game can be downloaded from the following URL:    
-http://camps.moreoncode.com/Camp2011/
+Blah. Blah. Blah. Blah. Blah. 
 
 ## Our Game
 
