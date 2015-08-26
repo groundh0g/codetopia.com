@@ -200,9 +200,10 @@
             $("h5").each(function(){ $(this).css("clear", "both"); });
             $("img").each(function(){
                 var $obj = $(this);
-                if($obj.attr("src").contains("students.jpg")) {
+                var $src = $obj.attr("src");
+                if("students.jpg" === $src.substr($src.length - "students.jpg".length)) {
                     $obj.width("45%").css("float", "right").css("margin-left","10px");
-                } else if($obj.attr("src").contains("game.png")) {
+                } else if("game.png" === $src.substr($src.length - "game.png".length)) {
                     $obj.width("45%").css("float", "left").css("margin-right","10px");
                 } else {
                     $obj.width("100%");
