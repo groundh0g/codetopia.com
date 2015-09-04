@@ -4,6 +4,7 @@ category : book-codecamps
 title: "Chapter 18"
 tagline: "Libraries - Collision Detection"
 tags : []
+lastReviewedOn: "2015-09-04 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -24,18 +25,14 @@ Sprites are based on textures. Those textures are made up of pixels. To determin
 
 To access the pixels for a texture, we'll use code similar to the following:
 
-```csharp
-   // an array to hold the pixel data from the texture
-   Color[] pixels = new Color[texture.Width * texture.Height];
-   // fill our array with the texture's pixel data 
-   texture.GetData<Color>(pixels);
-```
+    // an array to hold the pixel data from the texture
+    Color[] pixels = new Color[texture.Width * texture.Height];
+    // fill our array with the texture's pixel data 
+    texture.GetData<Color>(pixels);
 
 Now we can access any pixel in the single-dimensional array using code similar to the following:
 
-```csharp
-   Color pixel = pixels[x + (y * texture.Width)];
-```
+    Color pixel = pixels[x + (y * texture.Width)];
 
 ### Remembering Opacity
 
@@ -57,13 +54,12 @@ It's a complete waste of time and resources to check for collisions, pixel by pi
 
 The `PixelPerfectHelper` class contains a collection of static methods to help us detect 2D collisions.
 
-```csharp
-   using System;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Graphics;
-   
-   namespace MoreOnCode.Graphics
-   {
+    using System;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    
+    namespace MoreOnCode.Graphics
+    {
       public class PixelPerfectHelper
       {
          // TODO: Implement GetOpaqueData
@@ -72,7 +68,7 @@ The `PixelPerfectHelper` class contains a collection of static methods to help u
          {
             return null;
          }
-   
+    
          // TODO: Implement DetectCollision
          public static bool DetectCollision(
             Rectangle rect1, Vector2 loc1, bool[,] data1,
@@ -80,16 +76,14 @@ The `PixelPerfectHelper` class contains a collection of static methods to help u
          {
             return false;
          }
-   
+    
       }
-   }
-```
+    }
 
 ### GetOpaqueData
 
 The first task in collision detection is to generate our opacity data array. Given a `Texure2D` object, the texture rectangle for the sprite, and an opacity threshold, the `GetOpaqueData` generates and returns an array of Boolean values that represent the opacity of each pixel of the sprite.
 
-```csharp
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
          // TODO: Implement GetOpaqueData
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
@@ -157,13 +151,11 @@ The first task in collision detection is to generate our opacity data array. Giv
             // return our findings to the caller
             return data;
          }
-```
 
 ### DetectCollision
 
 Once we have our opacity data, we can start checking for sprite collisions. The `DetectCollision` method encapsulates the two checks that need to be performed - do the sprite textures overlap, and, if so, do any of the overlapping, opaque pixels touch? These two checks are handled by the `BoundsOverlap` and `PixelsTouch` methods, respectively.
 
-```csharp
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
          // TODO: Implement DetectCollision
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
@@ -203,7 +195,6 @@ Once we have our opacity data, we can start checking for sprite collisions. The 
          {
             return false;
          }
-```
 
 Note the two helper methods - `BoundsOverlap` and `PixelsTouch`. They're used internally by `CheckForCollisions`. The first check is quick. We just want to know if the two specified sprites overlap. If not, we don't have to check any further.
 
@@ -217,7 +208,6 @@ The `BoundsOverlap` method returns a boolean value. If any part of the bounding 
 
 If the first sprite is fully to the left, fully to the right, fully above, or fully below the second sprite, there is no overlap. Otherwise, the bounding rectangles of the two sprites do overlap, and we need to perform a pixel-by-pixel comparison.
 
-```csharp
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
          // TODO: Implement BoundsOverlap
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
@@ -251,13 +241,11 @@ If the first sprite is fully to the left, fully to the right, fully above, or fu
                bottom1 < top2
             );
          }
-```
 
 #### PixelsTouch
 
 This is the routine where pixel-by-pixel comparisons are performed. First, we calculate the bounds of the smallest rectangle that contains all of the overlapping pixels of both sprites. Then, we focus our search for a collision to that subset of the opaque data. If both sprites have an opaque pixel at the same location, a collision has occurred.
 
-```csharp
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
          // TODO: Implement PixelsTouch
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
@@ -301,19 +289,17 @@ This is the routine where pixel-by-pixel comparisons are performed. First, we ca
             }
             return false;
          }
-```
 
 ### PixelPerfectHelper in Action
 
 To keep our parameter lists small, we'll make sure that the game's custom sprite class implements the `IPixelPerfectSprite` interface.
 
-```csharp
-   using System;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Graphics;
-
-   namespace MoreOnCode.Graphics
-   {
+    using System;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    
+    namespace MoreOnCode.Graphics
+    {
       // a handy interface to allow you to pass your game sprite 
       // into these helper methods, saving some typing in your 
       // parameter lists
@@ -324,18 +310,16 @@ To keep our parameter lists small, we'll make sure that the game's custom sprite
          Vector2 Location { get; set; }
          bool[,] OpaqueData { get; set; }
       }
-   }
-```
+    }
 
 That interface exposes all of the sprite properties that we'll need to perform collision detection. The following is an example class that implements the interface.
 
-```csharp
-   using System;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Graphics;
-
-   namespace MoreOnCode.Graphics
-   {
+    using System;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    
+    namespace MoreOnCode.Graphics
+    {
       // a handy class to allow you to refer to your sprite
       // and its associated data in one instance
       public class GameSprite : IPixelPerfectSprite 
@@ -344,29 +328,26 @@ That interface exposes all of the sprite properties that we'll need to perform c
          public Rectangle TextureRect { get; set; }
          public Vector2 Location { get; set; }
          public bool[,] OpaqueData { get; set; }
-
+    
          // draw this sprite, using current settings, and specified tint
          public void Draw(SpriteBatch batch, Color color)
          {
             batch.Draw(TextureData, Location, TextureRect, color);
          }
       }
-   }
-```
+    }
 
 ## Our Game
 
 Since this set of classes is used in several of the example games, I'm not going to write a new example just to showcase collision detection. If you'd like to see collisions in action check out one of the following chapters.
 
-* Chapter 4: Spit Polish
+* Chapter 4: Spit and Polish
 * Chapter 5: Side Scroller
 * Chapter X: Blah. Blah. Blah.
 
 A contrived example follows.
 
-```csharp
-   var foo = new bar();
-```
+    var foo = new bar();
 
 In this example, blah. Blah. Blah. Blah.
 
