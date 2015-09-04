@@ -4,6 +4,7 @@ category : book-codecamps
 title: "Chapter 19"
 tagline: "Libraries - Particles"
 tags : []
+lastReviewedOn: "2015-09-04 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -62,71 +63,69 @@ The following list describes each of the parameters and methods of this class.
 
 The `Particle` class is basically just a warehouse for the properties that the `Emitter` class uses to manage each particle.
 
-```csharp
-   using System;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Graphics;
-
-   namespace MoreOnCode.Graphics.ParticleSystem
-   {
-      public struct Particle
-      {
-         public bool IsActive;
-         public double Age;
-         public double LifeTime;
-         public Vector2 Position;
-         public Vector2 Velocity;
-         public Vector4 Color;
-         public float Rotation;
-         public float Opacity;
-         public float Scale;
-         public float Depth;
-
-         // update position (based on m_Movement) and age
-         public void Update(float elapsed)
-         {
-            // only update active particles
-            if (IsActive)
-            {
-               // move the particle
-               Position += Velocity * elapsed;
-
-               // check for expired particles
-               if (LifeTime != 0.0f) // 0.0f == never dies
-               {
-                  Age += elapsed;
-                  if (Age > LifeTime)
-                  {
-                     IsActive = false;
-                  }
-               }
-            }
-         }
-
-         // render the particle
-         public void Draw(
-            SpriteBatch batch,
-            Texture2D texture,
-            Rectangle clipRect)
-         {
-            // only draw active particles
-            if (IsActive)
-            {
-               batch.Draw(
-                  texture,
-                  Position,
-                  clipRect,
-                  new Color(Color),
-                  Rotation,
-                  Vector2.Zero,
-                  Scale,
-                  SpriteEffects.None,
-                  Depth);
-            }
-         }
-      }
-   }
-```
+    using System;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    
+    namespace MoreOnCode.Graphics.ParticleSystem
+    {
+       public struct Particle
+       {
+          public bool IsActive;
+          public double Age;
+          public double LifeTime;
+          public Vector2 Position;
+          public Vector2 Velocity;
+          public Vector4 Color;
+          public float Rotation;
+          public float Opacity;
+          public float Scale;
+          public float Depth;
+    
+          // update position (based on m_Movement) and age
+          public void Update(float elapsed)
+          {
+             // only update active particles
+             if (IsActive)
+             {
+                // move the particle
+                Position += Velocity * elapsed;
+    
+                // check for expired particles
+                if (LifeTime != 0.0f) // 0.0f == never dies
+                {
+                   Age += elapsed;
+                   if (Age > LifeTime)
+                   {
+                      IsActive = false;
+                   }
+                }
+             }
+          }
+    
+          // render the particle
+          public void Draw(
+             SpriteBatch batch,
+             Texture2D texture,
+             Rectangle clipRect)
+          {
+             // only draw active particles
+             if (IsActive)
+             {
+                batch.Draw(
+                   texture,
+                   Position,
+                   clipRect,
+                   new Color(Color),
+                   Rotation,
+                   Vector2.Zero,
+                   Scale,
+                   SpriteEffects.None,
+                   Depth);
+             }
+          }
+       }
+    }
 
 As you can see from the preceding listing, the particle implementation is (intentionally) quite simple. Particle systems are meant to be lightweight, requiring very little CPU time and memory for each particle.
 
@@ -170,19 +169,18 @@ active before being reclaimed.
 * **Draw():** Draw all active particles.
 * **Update():** Spawn new particles, update all active particles, apply any global modifiers (like gravity) to all active particles, and reclaim any inactive particles for later use.
 
-```csharp
-   using System;
-   using System.Collections.Generic;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Graphics;
-
-   namespace MoreOnCode.Graphics.ParticleSystem
-   {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    
+    namespace MoreOnCode.Graphics.ParticleSystem
+    {
       public class Emitter
       {
          // default constructor, 1000 particles
          public Emitter() : this(1000) { }
-
+    
          // init emitter with max particles
          public Emitter(long maxParticles) : base()
          { 
@@ -191,11 +189,11 @@ active before being reclaimed.
             this.ParticleLifetime = 10.0f;
             this.EmitterRV2 = new RangedVector2();
          }
-
-
+    
+    
          // helper to init particle locations within emitter bounds
          protected RangedVector2 EmitterRV2 { get; set; }
-
+    
          // location and size of the emitter
          protected Rectangle m_EmitterRect;
          public Rectangle EmitterRect
@@ -207,7 +205,7 @@ active before being reclaimed.
                EmitterRV2 = RangedVector2.FromRectangle(m_EmitterRect);
             }
          }
-
+    
          // helper to update the location of the emitter
          public Vector2 Position
          {
@@ -221,13 +219,13 @@ active before being reclaimed.
                   m_EmitterRect.Height);
             }
          }
-
+    
          public Rectangle EmitterBoundsRect { get; set; }
          public RangedVector2 RangeVelocity { get; set; }
          public RangedVector4 RangeColor { get; set; }
-
+    
          public Rectangle TextureRect { get; set; }
-
+    
          protected Texture2D m_Texture;
          public Texture2D Texture
          {
@@ -238,11 +236,11 @@ active before being reclaimed.
                TextureRect = m_Texture.Bounds;
             }
          }
-
+    
          public bool Enabled { get; set; } // false? don't draw, don't update
          public bool Active { get; set; } // false? draw and update, no new
          public long ParticlesPerUpdate { get; set; } // particles per frame
-
+    
          // max number of particles that this emitter can track
          protected long m_MaxParticles = 1000;
          public long MaxParticles
@@ -259,21 +257,19 @@ active before being reclaimed.
                }
             }
          }
-
+    
          // lifespan of particle, expressed in seconds
          public float ParticleLifetime { get; set; }
-
+    
          // keep track of active and inactive particles
          protected List<Particle> m_ActiveParticles = new List<Particle>();
          protected List<Particle> m_InactiveParticles = new List<Particle>();
-
+    
          // keep track of attached modifiers
          public List<Modifier> Modifiers = new List<Modifier>();
-```
 
 The `Update` method manages the active particles that it owns, reclaiming spent particles and spawning new particles as needed.
 
-```csharp
          // manage active particles, spawn new particles if it's time to do so
          public virtual void Update(float elapsed)
          {
@@ -286,11 +282,9 @@ The `Update` method manages the active particles that it owns, reclaiming spent 
                for (int i = 0; i < m_ActiveParticles.Count; i++)
                {
                   var particle = m_ActiveParticles[i];
-```
 
 When a particle leaves the area of the screen that's defined by the `EmitterBoundsRect` property, it becomes inactive.
 
-```csharp
                   // when particle leaves emitter bounds, mark inactive
                   parX = (int)Math.Round(particle.Position.X);
                   parY = (int)Math.Round(particle.Position.Y);
@@ -300,11 +294,9 @@ When a particle leaves the area of the screen that's defined by the `EmitterBoun
                      parY < EmitterBoundsRect.Bottom &&
                      parY + TextureRect.Height > EmitterBoundsRect.Top;
                   if (outOfBounds) particle.IsActive = false;
-```
 
 If the current particle is (still) active, any attached modifiers will be allowed to process it before it is asked to update itself.
 
-```csharp
                   // process active particles, cleanup inactive particles
                   if (particle.IsActive)
                   {
@@ -327,11 +319,9 @@ If the current particle is (still) active, any attached modifiers will be allowe
                      m_ActiveParticles.RemoveAt(i--);
                   }
                }
-```
 
 Now that all of the active particles have been updated, and newly inactive particles have been reclaimed, it's time to spawn new particles.
 
-```csharp
                // try to generate ParticlesPerUpdate new particles
                for (long i = 0; Active && i < ParticlesPerUpdate; i++)
                {
@@ -347,11 +337,9 @@ Now that all of the active particles have been updated, and newly inactive parti
                      m_InactiveParticles.RemoveAt(0);
                      m_ActiveParticles.Add(particle);
                   }
-```
 
 If we've run out of particles in our inactive pool, there's no need to keep trying to spawn new particles. We'll just exit the loop. Maybe there will be some more particles to play with during the next frame.
 
-```csharp
                   else
                   {
                      // no more particles in our inactive pool
@@ -360,11 +348,9 @@ If we've run out of particles in our inactive pool, there's no need to keep tryi
                }
             }
          }
-```
 
 The `Draw` method of the `Emitter` class simply iterates through the list of active particles, asking each to draw itself.
 
-```csharp
          // render the active particles
          public virtual void Draw(SpriteBatch batch)
          {
@@ -378,10 +364,9 @@ The `Draw` method of the `Emitter` class simply iterates through the list of act
                }
             }
          }
-
+    
       }
-   }
-```
+    }
 
 ### Modifiers
 
@@ -389,12 +374,11 @@ Left to their own devices, particles will move at a constant rate, in a fixed di
 
 It doesn't make much sense to implement global changes like gravity and wind at the particle level. Gravity affects every particle. So, the emitter manages a list of helper objects that can make global changes to particles. These helper objects are instances of the `Modifier` structure.
 
-```csharp
-   using System;
-   using Microsoft.Xna.Framework;
-
-   namespace MoreOnCode.Graphics.ParticleSystem
-   {
+    using System;
+    using Microsoft.Xna.Framework;
+    
+    namespace MoreOnCode.Graphics.ParticleSystem
+    {
       // update a particle based on custom code, used by emitter
       public struct Modifier
       {
@@ -405,7 +389,7 @@ It doesn't make much sense to implement global changes like gravity and wind at 
          public float RotationDelta;
          public float ScaleDelta;
          public float DepthDelta;
-
+    
          // called for each particle, every frame, by emitter, if enabled
          public void Update(Particle particle, float elapsed)
          {
@@ -419,53 +403,46 @@ It doesn't make much sense to implement global changes like gravity and wind at 
                { particle.Scale += ScaleDelta * elapsed; }
             if (DepthDelta != 0.0f) 
                { particle.Depth += DepthDelta * elapsed; }
-
+    
             // allow for custom modifier logic
             if (OnUpdate != null) {
                OnUpdate (particle, elapsed);
             }
          }
-
+    
          public delegate void OnUpdateDelegate(
             Particle particle, 
             float elapsed);
          public OnUpdateDelegate OnUpdate;
-
+    
       }
-   }
-```
+    }
 
 You can think of modifiers as a kind of plug-in. A simple gravity modifier would update particles using a formula similar to "`particle.Velocity.Y = particle.Velocity.Y + this.VelocityDelta.Y`." A simple wind modifier would update particles using a formula similar to "`particle.Velocity.X = particle.Velocity.X + this.VelocityDelta.X`." Modifiers are typically very simple, but they can be combined with other simple modifiers to achieve great composite effects.
 
-```csharp
-   var modifierGravity = new Modifier();
-   modifierGravity.VelocityDelta = new Vector2(0.0f, 200.0f);
-   
-   var modifierWind = new Modifier();
-   modifierWind.VelocityDelta = new Vector2(200.0f, 0.0f);
-   
-   emitter.Modifiers.Add(modifierGravity);
-   emitter.Modifiers.Add(modifierWind);
-```
+    var modifierGravity = new Modifier();
+    modifierGravity.VelocityDelta = new Vector2(0.0f, 200.0f);
+    
+    var modifierWind = new Modifier();
+    modifierWind.VelocityDelta = new Vector2(200.0f, 0.0f);
+    
+    emitter.Modifiers.Add(modifierGravity);
+    emitter.Modifiers.Add(modifierWind);
 
 Of course, the above example could be combined to create a single `Modifier` for both effects.
 
-```csharp
-   var modifierGravityAndWind = new Modifier();
-   modifierGravityAndWind.VelocityDelta = 
+    var modifierGravityAndWind = new Modifier();
+    modifierGravityAndWind.VelocityDelta = 
       new Vector2(200.0f, 200.0f);
-   
-   emitter.Modifiers.Add(modifierGravityAndWind);
-```
+    
+    emitter.Modifiers.Add(modifierGravityAndWind);
 
 Modfiers don't have to limit themselves to the exposed particle "Delta" properties. You can also add a custom `OnUpdate` delegate to perform more complex calculations.
 
-```csharp
-   var modifier = new Modifier ();
-   modifier.OnUpdate = 
+    var modifier = new Modifier ();
+    modifier.OnUpdate = 
       new Modifier.OnUpdateDelegate (MyUpdateFunction);
-   emitter.Modifiers.Add(modifier);
-```
+    emitter.Modifiers.Add(modifier);
 
 Using your own logic, you might change the particles' colors to create a pulsing or fading effect. Or you might change the particles' size or rotation to create interesting falling leaves or snow. Or you might create a single-point gravity effect so that particles are pulled into a black hole or whirlpool.
 
@@ -483,22 +460,19 @@ This is the first time that we'll be using a feature of the C# programming langu
 
 For example, we can define a simplified `RangedValue` class that just holds our `Min` and `Max` values using the following code:
 
-```csharp
-   public class RangedValue<T>
-   {
+    public class RangedValue<T>
+    {
       // the min value
       public T Min { get; set; }
       public T Max { get; set; }
-   }
-```
+    }
 
 To use this class for a ranged integer, a ranged string, and a ranged Color, we could then add code similar to the following to our game:
 
-```csharp
-   RangedValue<int> IntRange;
-   RangedValue<string> StringRange;
-   RangedValue<Color> ColorRange;
-```
+    RangedValue<int> IntRange;
+    RangedValue<string> StringRange;
+    RangedValue<Color> ColorRange;
+
 Before generics, we had two basic options. The first option was to implement each of these variations as a separate class, possibly implementing a common interface in each specialized class (or deriving each from a common base class) so that we could pass the object among methods generically. The second option was to implement the `RangedValue` class so that the `Min` and `Max` properties used `System.Object` as their data type, but that would require runtime casting (boxing and unboxing) and performance would suffer if we used the class extensively.
 
 While the first option is better in terms of performance, maintaining multiple classes is a pain. If you make a change to one of the classes, you need to remember to make the same change to the other classes.
@@ -509,40 +483,39 @@ Storing type-specific data is the easy part. Converting random values (which are
 
 The actual `RangedValue` class source code listing follows.
 
-```csharp
-   using System;
-   using Microsoft.Xna.Framework;
-
-   namespace MoreOnCode.Graphics.ParticleSystem
-   {
+    using System;
+    using Microsoft.Xna.Framework;
+    
+    namespace MoreOnCode.Graphics.ParticleSystem
+    {
       // simple class to hold min / max values and generate random values 
       // within those bounds. b ase class uses generics (templates)
       public abstract class RangedValue<T>
       {
          public RangedValue() : this(default(T), default(T)) {}
-
+    
          public RangedValue(T min, T max) : base()
          {
             this.Min = min;
             this.Max = max;
          }
-
+    
          public T Min { get; set; }
          public T Max { get; set; }
          public T Value { get; set; }
-
+    
          // random number generator
          protected Random m_rand = new Random();
-
+    
          // generate a random value between min and max, inclusive
          public abstract T RandomValue();
       }
-
+    
       public class RangedByte : RangedValue<byte>
       {
          public RangedByte() : base() { }
          public RangedByte(byte min, byte max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override byte RandomValue()
          {
@@ -552,16 +525,16 @@ The actual `RangedValue` class source code listing follows.
                   (float)Max,
                   (float)m_rand.NextDouble()));
             return Value;
-
+    
          }
       }
-
+    
       // type-specific subclass
       public class RangedInt : RangedValue<int>
       {
          public RangedInt() : base() { }
          public RangedInt(int min, int max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override int RandomValue()
          {
@@ -571,16 +544,16 @@ The actual `RangedValue` class source code listing follows.
                   (float)Max,
                   (float)m_rand.NextDouble()));
             return Value;
-
+    
          }
       }
-
+    
       // type-specific subclass
       public class RangedLong : RangedValue<long>
       {
          public RangedLong() : base() { }
          public RangedLong(long min, long max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override long RandomValue()
          {
@@ -590,16 +563,16 @@ The actual `RangedValue` class source code listing follows.
                   (float)Max,
                   (float)m_rand.NextDouble()));
             return Value;
-
+    
          }
       }
-
+    
       // type-specific subclass
       public class RangedFloat : RangedValue<float>
       {
          public RangedFloat() : base() { }
          public RangedFloat(float min, float max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override float RandomValue()
          {
@@ -609,16 +582,16 @@ The actual `RangedValue` class source code listing follows.
                (float)Max,
                (float)m_rand.NextDouble());
             return Value;
-
+    
          }
       }
-
+    
       // type-specific subclass
       public class RangedDouble : RangedValue<double>
       {
          public RangedDouble() : base() { }
          public RangedDouble(double min, double max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override double RandomValue()
          {
@@ -628,16 +601,16 @@ The actual `RangedValue` class source code listing follows.
                (float)Max,
                (float)m_rand.NextDouble());
             return Value;
-
+    
          }
       }
-
+    
       // type-specific subclass
       public class RangedVector2 : RangedValue<Vector2>
       {
          public RangedVector2() : base() { }
          public RangedVector2(Vector2 min, Vector2 max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override Vector2 RandomValue()
          {
@@ -653,34 +626,34 @@ The actual `RangedValue` class source code listing follows.
                (float)m_rand.NextDouble());
             this.Value = value;
             return Value;
-
+    
          }
-
+    
          // determine min and max values from a Rectangle
          public static RangedVector2 FromRectangle(Rectangle rect)
          {
             Vector2 v2Min = Vector2.Zero;
             v2Min.X = rect.Left;
             v2Min.Y = rect.Top;
-
+    
             Vector2 v2Max = Vector2.Zero;
             v2Max.X = rect.Left + rect.Width;
             v2Max.Y = rect.Top + rect.Height;
-
+    
             RangedVector2 rv2 = new RangedVector2();
             rv2.Min = v2Min;
             rv2.Max = v2Max;
-
+    
             return rv2;
          }
       }
-
+    
       // type-specific subclass
       public class RangedVector3 : RangedValue<Vector3>
       {
          public RangedVector3() : base() { }
          public RangedVector3(Vector3 min, Vector3 max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override Vector3 RandomValue()
          {
@@ -700,16 +673,16 @@ The actual `RangedValue` class source code listing follows.
                (float)m_rand.NextDouble());
             this.Value = value;
             return Value;
-
+    
          }
       }
-
+    
       // type-specific subclass
       public class RangedVector4 : RangedValue<Vector4>
       {
          public RangedVector4() : base() { }
          public RangedVector4(Vector4 min, Vector4 max) : base(min, max) { }
-
+    
          // generate a random value between min and max, inclusive
          public override Vector4 RandomValue()
          {
@@ -734,7 +707,7 @@ The actual `RangedValue` class source code listing follows.
             Value = value;
             return Value;
          }
-
+    
          // determine min and max values from colors
          public static RangedVector4 FromColors(Color min, Color max)
          {
@@ -743,47 +716,44 @@ The actual `RangedValue` class source code listing follows.
             v4Min.Y = (float)min.G / (float)byte.MaxValue;
             v4Min.Z = (float)min.B / (float)byte.MaxValue;
             v4Min.W = (float)min.A / (float)byte.MaxValue;
-
+    
             Vector4 v4Max = Vector4.Zero;
             v4Max.X = (float)max.R / (float)byte.MaxValue;
             v4Max.Y = (float)max.G / (float)byte.MaxValue;
             v4Max.Z = (float)max.B / (float)byte.MaxValue;
             v4Max.W = (float)max.A / (float)byte.MaxValue;
-
+    
             RangedVector4 rv4 = new RangedVector4();
             rv4.Min = v4Min;
             rv4.Max = v4Max;
-
+    
             return rv4;
          }
       }
-   }
-```
+    }
 
 ## Our Game
 
 Since this set of classes is used in several of the example games, I'm not going to write a new example just to showcase the particle effects. If you'd like to see the particles in action check out one of the following chapters.
 
-* Chapter 4: Spit Polish
+* Chapter 4: Spit and Polish
 * Chapter 5: Side Scroller
 * Chapter X: Blah. Blah. Blah.
 
 A contrived example follows.
 
-```csharp
-   var emitter = new Emitter();
-   emitter.ParticlesPerUpdate = 20;
-   emitter.MaxParticles = 15000;
-   emitter.EmitterRect = new Rectangle(200, 200, 0, 0);
-   emitter.RangeColor = 
+    var emitter = new Emitter();
+    emitter.ParticlesPerUpdate = 20;
+    emitter.MaxParticles = 15000;
+    emitter.EmitterRect = new Rectangle(200, 200, 0, 0);
+    emitter.RangeColor = 
       RangedVector4.FromColors(Color.Orange, Color.Yellow);
-   
-   // add a modifier to the emitter
-   var modifier = new Modifier();
-   modifier.VelocityDelta = new Vector2(200.0f, 200.0f);
-   emitter.Modifiers.Add (modifier);
-   modifier.Enabled = false; // disable the modifier for now
-```
+    
+    // add a modifier to the emitter
+    var modifier = new Modifier();
+    modifier.VelocityDelta = new Vector2(200.0f, 200.0f);
+    emitter.Modifiers.Add (modifier);
+    modifier.Enabled = false; // disable the modifier for now
 
 In this example, the emitter will spawn no more than 20 new particles per frame, and no more than 15,000 particles will be active at any one time. Particles will be spawned from a single point on the screen (rather than a rectangular area since the `Width` and `Height` of the rectangle are both zero). New particles will be tinted yellow, orange, or some shade between those two extremes.
 
