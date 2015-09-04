@@ -4,6 +4,8 @@ category : book-codecamps
 title: "Chapter 3"
 tagline: "Crash Course"
 tags : []
+status: [stub]
+lastReviewedOn: "2015-09-03 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -25,22 +27,20 @@ All programs work basically the same way. They take input, process it, and gener
 
 One of the simplest programs is the console app. You type a command, optionally pass in parameters, and (eventually) get output. For example, you might want to see a list of files in the current directory.
 
-```text
-   josephs-mbp:~ groundh0g$ ls -lFa
-   drwxr-xr-x+ 38 groundh0g  staff   1292 Sep 26 05:20 ./
-   drwxr-xr-x   6 root       admin    204 Oct 28  2013 ../
-   drwxr-xr-x   3 groundh0g  staff    102 Feb  5  2014 Applications/
-   drwx------+ 32 groundh0g  staff   1088 Sep 26 07:06 Desktop/
-   drwx------+ 21 groundh0g  staff    714 Aug 10 17:59 Documents/
-   drwx------+ 67 groundh0g  staff   2278 Sep 23 19:12 Downloads/
-   drwx------@ 64 groundh0g  staff   2176 Jun 12 11:14 Library/
-   drwx------+  5 groundh0g  staff    170 Jul  4  2013 Movies/
-   drwx------+  7 groundh0g  staff    238 Aug 31 12:55 Music/
-   drwx------+  6 groundh0g  staff    204 May 16 02:05 Pictures/
-   drwxr-xr-x  24 groundh0g  staff    816 Sep 16 19:06 Projects/
-   drwxr-xr-x+  5 groundh0g  staff    170 Jul 23 15:06 Public/
-   josephs-mbp:~ groundh0g$ 
-```
+    josephs-mbp:~ groundh0g$ ls -lFa
+    drwxr-xr-x+ 38 groundh0g  staff   1292 Sep 26 05:20 ./
+    drwxr-xr-x   6 root       admin    204 Oct 28  2013 ../
+    drwxr-xr-x   3 groundh0g  staff    102 Feb  5  2014 Applications/
+    drwx------+ 32 groundh0g  staff   1088 Sep 26 07:06 Desktop/
+    drwx------+ 21 groundh0g  staff    714 Aug 10 17:59 Documents/
+    drwx------+ 67 groundh0g  staff   2278 Sep 23 19:12 Downloads/
+    drwx------@ 64 groundh0g  staff   2176 Jun 12 11:14 Library/
+    drwx------+  5 groundh0g  staff    170 Jul  4  2013 Movies/
+    drwx------+  7 groundh0g  staff    238 Aug 31 12:55 Music/
+    drwx------+  6 groundh0g  staff    204 May 16 02:05 Pictures/
+    drwxr-xr-x  24 groundh0g  staff    816 Sep 16 19:06 Projects/
+    drwxr-xr-x+  5 groundh0g  staff    170 Jul 23 15:06 Public/
+    josephs-mbp:~ groundh0g$ 
 
 A console application takes it's input from the command line or from a file, processes the command and associated options, and generates output which is printed to the console. Requested actions are processed immediately.
 
@@ -50,13 +50,9 @@ A desktop application spends most of its time idle, waiting for you to click a b
 
 Desktop apps are event-driven. They wait for a user-generated event (e.g. clicking or typing) or system-generated event (e.g. a shutdown notification), and then respond to that event.
 
-A service like a web server, waits for a command to arrive at a specific port (generally port 80), processes that command, and generates output (typically HTML or some static resource like an image).
+A service like a web server, waits for a command to arrive at a specific port (generally port 80), processes that command, and generates output (typically HTML or some static resource like an image). For example, the web browser (a desktop application) might send the following request to a web server (a service).
 
-For example, the web browser (a desktop application) might send the following request to a web server (a service).
-
-```text
-   GET http://fpack.moreoncode.com/ HTTP/1.1
-```
+    GET http://fpack.moreoncode.com/ HTTP/1.1
 
 The server responds with HTML and images, which the browser uses to render the requested page. (*Technically, each static resource, like an image, is retrieved with separate `GET` requests.*)
 
@@ -68,22 +64,20 @@ I could list countless examples, and each would follow the same basic model of r
 
 Before we jump into MonoGame code, we need to cover the basic parts of a program.
 
-```csharp
-   using System;
-   
-   namespace Chapter03.CrashCourse
-   {
+    using System;
+    
+    namespace Chapter03.CrashCourse
+    {
       public class SampleClass
       {
          public SampleClass () { }
-   
+    
          public static void Main (string[] args)
          {
             Console.WriteLine ("Hello, World!");
          }
       }
-   }
-```
+    }
 
 In this case, we have a console program that ignores command line parameters (the input), doing absolutely nothing with them (the processing), and then prints a generic welcome message (the output).
 
@@ -95,19 +89,17 @@ Don't worry about the details at this point. Just try to understand what the `Sa
 
 ## How a Game Works
 
-To recap:
+To recap what we've learned so far ...
 
 * Console applications are inactive until they're invoked. They spring to life, process the request, and are unloaded from memory when their tasks are complete.
 * Desktop applications are launched (generally by a user), and then sit idly by, waiting for user or system events. Once an event is received, the application performs its tasks, and then returns to an idle state. The application runs until the system or (more likely) the user asks it to terminate.
 * Services are launched (generally by the system), and then sit idly by, waiting for a request to come in. Once a request is received, the service performs its tasks, and then returns to an idle state. The service runs until the user or (more likely) the system asks it to terminate.
 
-Games are slightly different beasts. The user invokes them, and then they run continuously until they're asked to terminate. Games have a heartbeat. It's called the game loop. At regular intervals, two methods of a game are invoked - `Update` and `Draw`.
-
-The interval varies based on the game, but it's typically 1/60 of a second. 1/30 of a second is usually considered minimal for games, but your `Draw` calls can be made as infrequently as 1/12 of a second to provide smooth animations.
+Games are slightly different beasts. The user invokes them, and then they run continuously until they're asked to terminate. Games have a heartbeat. It's called the game loop. At regular intervals, two methods of a game are invoked - `Update` and `Draw`. The interval varies based on the game, but it's typically 1/60 of a second. 1/30 of a second is usually considered minimal for games, but your `Draw` calls can be made as infrequently as 1/12 of a second to provide smooth animations.
 
 >**NOTE:** For reference, most TV shows refresh at around 29.97 frames per second (assuming NTSC), most theatrical and animated films refresh at around 24 frames per second, and standard quality web animations refresh at around 12 frames per second. Of course, there's a long list of specific frame rates for specific applications, but those are a common rule of thumb.
 
-Another major difference between games and other applications is that the "take input" step is continuous. The game is constantly polling input devices, asking them if there's been any change since the last query.
+If you take nothing else away from this section, remember `Update`, `Draw`, `Update`, `Draw`, `Update`, `Draw`, ... It's a concept that I drill into my camp students, and it's what makes a game or simulation different from other programs. Another major difference between games and other applications is that the "take input" step is continuous. The game is constantly polling input devices, asking them if there's been any change since the last query.
 
 The "process input" step is handled in the `Update` method. Your virtual world is constantly updated based on a variety of factors, including player input. And the "generate output" step is handled by the `Draw` method, which renders the game visuals based on the current state of in-game objects that have been refreshed in the `Update` method.
 
@@ -117,44 +109,43 @@ The "process input" step is handled in the `Update` method. Your virtual world i
 
 Before we get started on our game for this chapter, lets cover the basic parts of the MonoGame game class.
 
-```csharp
-   using System;
-   using System.Collections.Generic;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Audio;
-   using Microsoft.Xna.Framework.Content;
-   using Microsoft.Xna.Framework.GamerServices;
-   using Microsoft.Xna.Framework.Graphics;
-   using Microsoft.Xna.Framework.Input;
-   using Microsoft.Xna.Framework.Media;
-
-   namespace Chapter03.CrashCourse
-   {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Audio;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.GamerServices;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using Microsoft.Xna.Framework.Media;
+    
+    namespace Chapter03.CrashCourse
+    {
       public class Game1 : Microsoft.Xna.Framework.Game
       {
          GraphicsDeviceManager graphics;
          SpriteBatch spriteBatch;
-   
+    
          public Game1()
          {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
          }
-   
+    
          protected override void Initialize()
          {
             // TODO: Add your initialization logic here
             base.Initialize();
          }
-   
+    
          protected override void LoadContent()
          {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
          }
-   
+    
          protected override void UnloadContent() { }
-   
+    
          protected override void Update(GameTime gameTime)
          {
             var buttonState = GamePad.GetState(PlayerIndex.One).Buttons.Back;
@@ -165,7 +156,7 @@ Before we get started on our game for this chapter, lets cover the basic parts o
             // TODO: Add your update logic here
             base.Update(gameTime);
          }
-   
+    
          protected override void Draw(GameTime gameTime)
          {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -173,8 +164,7 @@ Before we get started on our game for this chapter, lets cover the basic parts o
             base.Draw(gameTime);
          }
       }
-   }
-```
+    }
 
 This is a fully functioning game. It renders a blue screen, at 60+ frames per second, and constantly asks the GamePad if the Back button is being pressed. When the Back button is pressed, the game exits. It's no blockbuster, but it has all the plumbing that we need to start building our own games.
 

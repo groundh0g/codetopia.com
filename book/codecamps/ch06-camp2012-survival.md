@@ -5,7 +5,7 @@ title: "Chapter 6"
 tagline: "Camp 2012 - Survival"
 tags : []
 status: [stub]
-lastReviewedOn: "2015-08-25 00:00:00 -0500"
+lastReviewedOn: "2015-08-29 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -31,7 +31,7 @@ The 2012 Camp game can be downloaded from the following URL:
 
 ## Our Game
 
-I'll give you a break from my attempts at being a game artist. We'll use Kenney's assets to create a similar game. This new game will support one to four players. They will start off in the center of the screen as baddies approach from each side.
+I'll give you a break from my attempts at being a game artist. We'll use Kenney's assets to create a similar game. This new game will support one to four players. They will start off in the center of the screen and baddies will approach from each side.
 
 The waves of baddies increase in frequency and size as the game goes on. Players fight off the hordes until each meets their inevitable doom. The last player standing wins the game.
 

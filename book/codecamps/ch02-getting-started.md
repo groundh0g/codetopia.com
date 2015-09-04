@@ -4,6 +4,8 @@ category : book-codecamps
 title: "Chapter 2"
 tagline: "Getting Started"
 tags : []
+status: [stub]
+lastReviewedOn: "2015-09-02 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -64,7 +66,7 @@ Once XCode has been installed, you will need to run it once so that the componen
 
 Speaking of which, now's the time to download MonoDevelop (Xamarin Studio) and the Mono Development Kit (MDK). Both links can be found on the "Download" page of the MonoDevelop website using the following URL.
 
-```text
+```
    http://monodevelop.com/
 ```
 
@@ -154,7 +156,7 @@ The team of developers that maintains the MonoGame project has created a new rep
    
 So, that sounds like a good place to start. When Simon posted the news item on the MonoGame website, there was a whopping one sample game -- `Platformer2D`. But one is all we need. The samples repository can be accessed from the following URL.
 
-```text
+```
    https://github.com/Mono-Game/MonoGame.Samples
 ```
 
@@ -162,43 +164,42 @@ So, that sounds like a good place to start. When Simon posted the news item on t
 
 We'll be using the "Main.cs" from that example game for all our empty projects. It provides the launching point for all platforms using conditional compiler directives.
 
-```csharp
-   using System;
-   #if MONOMAC
-   using MonoMac.AppKit;
-   using MonoMac.Foundation;
-   #elif IPHONE
-   using MonoTouch.Foundation;
-   using MonoTouch.UIKit;
-   #endif
-   
-   namespace MyFirstGame
-   {
+    using System;
+    #if MONOMAC
+    using MonoMac.AppKit;
+    using MonoMac.Foundation;
+    #elif IPHONE
+    using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
+    #endif
+
+    namespace MyFirstGame
+    {
       #if MONOMAC
       class Program
       {
          static void Main (string[] args)
          {
             NSApplication.Init ();
-   
+    
             using (var p = new NSAutoreleasePool ()) {
                NSApplication.SharedApplication.Delegate = new AppDelegate ();
                NSApplication.Main (args);
             }
          }
       }
-   
+    
       public partial class AppDelegate : NSApplicationDelegate
       {
          private MyFirstGame game;
-   
+    
          public override void 
          FinishedLaunching (MonoMac.Foundation.NSObject notification)
          {
             game = new MyFirstGame();
             game.Run();
          }
-   
+    
          public override bool 
          ApplicationShouldTerminateAfterLastWindowClosed (NSApplication sender)
          {
@@ -210,13 +211,13 @@ We'll be using the "Main.cs" from that example game for all our empty projects. 
       class Program : UIApplicationDelegate 
       {
          private MyFirstGame game;
-   
+    
          public override void FinishedLaunching (UIApplication app)
          {
             game = new MyFirstGame ();
             game.Run();
          }
-   
+    
          static void Main (string [] args)
          {
             UIApplication.Main (args,null,"AppDelegate");
@@ -244,8 +245,7 @@ We'll be using the "Main.cs" from that example game for all our empty projects. 
       }
       #endif
       #endif
-   }
-```
+    }
 
 You can search and replace "`MyFirstGame`" with whatever your new project name is.
 
@@ -253,69 +253,68 @@ You can search and replace "`MyFirstGame`" with whatever your new project name i
 
 We'll use the following Game.cs for all our empty game projects. I resisted the urge to include a simple implementation for `LoadContent`, `Update`, and `Draw`. I think that a blank, blue screen isn't very impressive, but it's the perfect canvas from which to start your own projects.
 
-```csharp
-   using System;
-   using System.Collections.Generic;
-   using Microsoft.Xna.Framework;
-   using Microsoft.Xna.Framework.Graphics;
-   using Microsoft.Xna.Framework.Input;
-   using Microsoft.Xna.Framework.Media;
-   using Microsoft.Xna.Framework.Input.Touch;
 
-   namespace MyFirstGame
-   {
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using Microsoft.Xna.Framework.Media;
+    using Microsoft.Xna.Framework.Input.Touch;
+    
+    namespace MyFirstGame
+    {
       public class MyFirstGame : Microsoft.Xna.Framework.Game
       {
          // Resources for drawing.
          private GraphicsDeviceManager graphics;
          private SpriteBatch spriteBatch;
-
+    
          public MyFirstGame ()
          {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+    
             #if WINDOWS_PHONE
             TargetElapsedTime = TimeSpan.FromTicks(333333);
             #endif
-
+    
             //graphics.IsFullScreen = true;
             //this.IsMouseVisible = false;
-
+    
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
-
+    
             graphics.SupportedOrientations = 
                DisplayOrientation.LandscapeLeft | 
                DisplayOrientation.LandscapeRight;
          }
-
+    
          protected override void LoadContent()
          {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+    
             // TODO: Load content
          }
-
+    
          protected override void Update(GameTime gameTime) 
          {
             // TODO: Update world
-
+    
             base.Update (gameTime);
          }
-
+    
          protected override void Draw(GameTime gameTime)
          {
             graphics.GraphicsDevice.Clear (Color.CornflowerBlue);
-
+    
             // TODO: Draw world
-
+    
             base.Draw (gameTime);
          }
       }
-   }
-```
+    }
 
 You can search and replace "`MyFirstGame`" with whatever your new project name is.
 
@@ -329,32 +328,31 @@ I've written some helper classes to handle most of the platform voodoo, but they
 
 Compiler directives that I pulled straight from the MonoGame Framework projects drive the "voodoo". I'll list them here for your convenience. Note that they are subject to change. So, you should check the latest values in the MonoGame repository if you're having platform-specific issues.
 
-|Platform|Constants|
-|-----------|------------|
-|Android     |TRACE; ANDROID; GLES; OPENGL; |
-|Linux       |LINUX; OPENGL; |
-|MacOS       |MONOMAC; OPENGL; |
-|Ouya        |TRACE; ANDROID; GLES; OPENGL; OUYA; |
-|PSMobile    |DEBUG; PSM; |
-|Windows     |DEBUG; TRACE; WINDOWS; DIRECTX; WINDOWS_MEDIA_SESSION; |
-|Windows8    |TRACE; NETFX_CORE; WINRT; WINDOWS_STOREAPP; DIRECTX; DIRECTX11_1; WINDOWS_MEDIA_ENGINE; |
-|WindowsGL   |TRACE; WINDOWS; OPENGL; |
-|WindowsPhone|TRACE; DEBUG; SILVERLIGHT; WINDOWS_PHONE; WINRT; DIRECTX; |
-|iOS         |IOS; GLES; OPENGL; |
+|Platform    |Constants|
+|------------|------------|
+|Android     | ```TRACE; ANDROID; GLES; OPENGL;```|
+|Linux       | ```LINUX; OPENGL;```|
+|MacOS       | ```MONOMAC; OPENGL;```|
+|Ouya        | ```TRACE; ANDROID; GLES; OPENGL; OUYA;```|
+|PSMobile    | ```DEBUG; PSM;```|
+|Windows     | ```DEBUG; TRACE; WINDOWS; DIRECTX; WINDOWS_MEDIA_SESSION;```|
+|Windows8    | ```TRACE; NETFX_CORE; WINRT; WINDOWS_STOREAPP; DIRECTX; DIRECTX11_1; WINDOWS_MEDIA_ENGINE;```|
+|WindowsGL   | ```TRACE; WINDOWS; OPENGL;```|
+|WindowsPhone| ```TRACE; DEBUG; SILVERLIGHT; WINDOWS_PHONE; WINRT; DIRECTX;```|
+|iOS         | ```IOS; GLES; OPENGL;```|
+
 
 If you use my helper class, `PlatformHelper`, you shouldn't need to reference those via compiler directives, but they will need to be set in your game's project options.
 
 Using the helper, you can write code like the following.
 
-```csharp
-   if(PlatformHelper.CurrentPlatform == Platforms.WindowsPhone) 
-   {
+    if(PlatformHelper.CurrentPlatform == Platforms.WindowsPhone) 
+    {
       TargetElapsedTime = TimeSpan.FromTicks(333333);
-   }
-
-   graphics.IsFullScreen = PlatformHelper.IsMobile;
-   this.IsMouseVisible = PlatformHelper.IsDesktop;
-```
+    }
+    
+    graphics.IsFullScreen = PlatformHelper.IsMobile;
+    this.IsMouseVisible = PlatformHelper.IsDesktop;
 
 Without the helper, the conditional logic gets messy. For example, the property, `PlatformHelper.IsMobile`, knows that Ouya is not a mobile device, even though the `ANDROID` compiler directive is set.
 
