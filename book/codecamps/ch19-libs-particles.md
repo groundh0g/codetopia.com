@@ -169,6 +169,8 @@ active before being reclaimed.
 * **Draw():** Draw all active particles.
 * **Update():** Spawn new particles, update all active particles, apply any global modifiers (like gravity) to all active particles, and reclaim any inactive particles for later use.
 
+The code for the `Emitter` class follows.
+
     using System;
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
