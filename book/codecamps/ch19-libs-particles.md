@@ -4,7 +4,8 @@ category : book-codecamps
 title: "Chapter 19"
 tagline: "Libraries - Particles"
 tags : []
-lastReviewedOn: "2015-09-04 00:00:00 -0500"
+status: [ready for edit]
+lastReviewedOn: "2015-09-12 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -48,18 +49,18 @@ The particle is the basic building block of any particle system. Particles appea
 
 The following list describes each of the parameters and methods of this class.
 
-* **Age:** The number of (cumulative) seconds that this particle has been active.
-* **Color:** The tint with which to draw this sprite.
-* **Depth:** The Z-Order of this sprite, expressed as a float between 0.0f and 1.0f.
-* **IsActive:** The current state of this particle. Particles are created once, and placed in a pool. When a particle is marked as inactive, it's available to be spawned as a new on-screen particle.
-* **Lifetime:** The maximum number of (cumulative) seconds that this particle may remain active.
-* **Velocity:** The distance that this particle will travel in a single second, assuming no outside force (like gravity or wind) is affecting it.
-* **Opacity:** The current transparency of this particle.
-* **Location:** The current location (screen coordinates) of this particle.
-* **Rotation:** The current rotation of this particle, expressed in radians.
-* **Scale:** The scale of this particle, where 1.0f is the actual size of the source texture.
-* **Draw():** Draw this particle using its current properties.
-* **Update():** Move the sprite, and update its age.
+* `Age`: The number of (cumulative) seconds that this particle has been active.
+* `Color`: The tint with which to draw this sprite.
+* `Depth`: The Z-Order of this sprite, expressed as a float between 0.0f and 1.0f.
+* `IsActive`: The current state of this particle. Particles are created once, and placed in a pool. When a particle is marked as inactive, it's available to be spawned as a new on-screen particle.
+* `Lifetime`: The maximum number of (cumulative) seconds that this particle may remain active.
+* `Velocity`: The distance that this particle will travel in a single second, assuming no outside force (like gravity or wind) is affecting it.
+* `Opacity`: The current transparency of this particle.
+* `Location`: The current location (screen coordinates) of this particle.
+* `Rotation`: The current rotation of this particle, expressed in radians.
+* `Scale`: The scale of this particle, where 1.0f is the actual size of the source texture.
+* `Draw()`: Draw this particle using its current properties.
+* `Update()`: Move the sprite, and update its age.
 
 The `Particle` class is basically just a warehouse for the properties that the `Emitter` class uses to manage each particle.
 
@@ -82,7 +83,7 @@ The `Particle` class is basically just a warehouse for the properties that the `
           public float Scale;
           public float Depth;
     
-          // update position (based on m_Movement) and age
+          // update position and age
           public void Update(float elapsed)
           {
              // only update active particles
@@ -149,25 +150,25 @@ The emitter also manages a list of global particle forces, like gravity and wind
 
 As with the `Particle` class, the `Emitter` class has many configurable properties. The following list describes each of the parameters and methods of the `Emitter` class.
 
-* **Active:** When false, active particles will continue to be updated and drawn, but new particles will not be spawned.
-* **Enabled:** When false, all processing is paused. Active particles will not be
+* `Active`: When false, active particles will continue to be updated and drawn, but new particles will not be spawned.
+* `Enabled`: When false, all processing is paused. Active particles will not be
 updated, and nothing will be drawn.
-* **EmitterRect:** Emitters have a width and height so that particles can be spawned from within a rectangle, rather than from a single point.
-* **EmitterBoundsRect:** In addition to a particle's Lifetime property, we can reclaim particles when they leave the screen (or when they leave the `EmitterBoundsRect`).
-* **Position:** It's a pain to update a rectangle when all you wanted to do was move the emitter to a new location, so this helper allows you to just specify a new X and Y to change the `EmitterRect`.
-* **ParticlesPerUpdate:** This is the number of new particles to emit with each call to Update. If there aren't enough particles in the inactive pool to satisfy this request, the number of particles actually spawned will be less than this value.
-* **MaxParticles:** This is the maximum number of particles that the emitter will ever actively manage. By placing an upper limit, we can make sure that our emitter isn't stealing resources that could be better used for other parts of our game.
-* **ParticleLifetime:** The number of seconds that a single particle may be
+* `EmitterRect`: Emitters have a width and height so that particles can be spawned from within a rectangle, rather than from a single point.
+* `EmitterBoundsRect`: In addition to a particle's Lifetime property, we can reclaim particles when they leave the screen (or when they leave the `EmitterBoundsRect`).
+* `Position`: It's a pain to update a rectangle when all you wanted to do was move the emitter to a new location, so this helper allows you to just specify a new X and Y to change the `EmitterRect`.
+* `ParticlesPerUpdate`: This is the number of new particles to emit with each call to Update. If there aren't enough particles in the inactive pool to satisfy this request, the number of particles actually spawned will be less than this value.
+* `MaxParticles`: This is the maximum number of particles that the emitter will ever actively manage. By placing an upper limit, we can make sure that our emitter isn't stealing resources that could be better used for other parts of our game.
+* `ParticleLifetime`: The number of seconds that a single particle may be
 active before being reclaimed.
-* **RangeColor:** The range of colors from which a new particle will have its `Color` property initialized.
-* **RangeVelocity:** The range of velocities from which a new particle will have its `Velocity` property initialized.
-* **Texture:** The texture of the sprite that represents a particle.
-* **TextureRect:** The source rectangle, within the `Texture`, for all particles.
-* **AddModifier():** Add a modifier (like gravity) to this emitter.
-* **ClearModifiers():** Clear the list of modifiers for this emitter.
-* **RemoveModifier():** Remove a specific modifier from this emitter.
-* **Draw():** Draw all active particles.
-* **Update():** Spawn new particles, update all active particles, apply any global modifiers (like gravity) to all active particles, and reclaim any inactive particles for later use.
+* `RangeColor`: The range of colors from which a new particle will have its `Color` property initialized.
+* `RangeVelocity`: The range of velocities from which a new particle will have its `Velocity` property initialized.
+* `Texture`: The texture of the sprite that represents a particle.
+* `TextureRect`: The source rectangle, within the `Texture`, for all particles.
+* `AddModifier()`: Add a modifier (like gravity) to this emitter.
+* `ClearModifiers()`: Clear the list of modifiers for this emitter.
+* `RemoveModifier()`: Remove a specific modifier from this emitter.
+* `Draw()`: Draw all active particles.
+* `Update()`: Spawn new particles, update all active particles, apply any global modifiers (like gravity) to all active particles, and reclaim any inactive particles for later use.
 
 The code for the `Emitter` class follows.
 
@@ -372,7 +373,7 @@ The `Draw` method of the `Emitter` class simply iterates through the list of act
 
 ### Modifiers
 
-Left to their own devices, particles will move at a constant rate, in a fixed direction. Particles maintain their own position data (the `Position` property) and velocity data (the `Velocity` property). Whenever the `Update` method is called on a particle, it modifies its own position using the simple formula, ''`Position = Position + Velocity`.'' That's fine if you're simulating a frictionless, gravity-free environment. In most scenarios, that's not the case.
+Left to their own devices, particles will move at a constant rate, in a fixed direction. Particles maintain their own position data (the `Position` property) and velocity data (the `Velocity` property). Whenever the `Update` method is called on a particle, it modifies its own position using the simple formula, "`Position = Position + Velocity`." That's fine if you're simulating a frictionless, gravity-free environment. In most scenarios, that's not the case.
 
 It doesn't make much sense to implement global changes like gravity and wind at the particle level. Gravity affects every particle. So, the emitter manages a list of helper objects that can make global changes to particles. These helper objects are instances of the `Modifier` structure.
 
@@ -452,7 +453,7 @@ Using your own logic, you might change the particles' colors to create a pulsing
 
 Of course, there may be a performance penalty for calling the modifier's `Update` method once for every particle. If we find that to be the case, we could consider breaking the modifier updates into a separate pass, processing particles before or after the emitter is done with its update pass.
 
-In that scenario, modifiers no longer work on a single particle at a time---they're called once per update, and they process all the active particles in a loop (saving thousands of calls to the modifier's `Update` method). This method might introduce other performance issues, though (like cache misses). So, you'll want to profile your code before and after to see if your ''optimizations'' are doing what you think they should.
+In that scenario, modifiers no longer work on a single particle at a time - they're called once per update, and they process all the active particles in a loop (saving thousands of calls to the modifier's `Update` method). This method might introduce other performance issues, though (like cache misses). So, you'll want to profile your code before and after to see if your "optimizations" are doing what you think they should.
 
 ## Ranged Values
 
@@ -744,18 +745,25 @@ Since this set of classes is used in several of the example games, I'm not going
 
 A contrived example follows.
 
-    var emitter = new Emitter();
+    texParticle = Content.Load<Texture2D>("images/Particle");
+    
+    emitter.Texture = texParticle;
     emitter.ParticlesPerUpdate = 20;
+    emitter.ParticleMinAgeToDraw = 0.1f;
     emitter.MaxParticles = 15000;
     emitter.EmitterRect = new Rectangle(200, 200, 0, 0);
     emitter.RangeColor = 
-      RangedVector4.FromColors(Color.Orange, Color.Yellow);
+        RangedVector4.FromColors(Color.Orange, Color.Yellow);
+    emitter.RangeVelocity = new RangedVector2(
+        new Vector2 (-200.0f, -200.0f),
+        new Vector2 (200.0f, 200.0f));
+    emitter.EmitterBoundsRect = GraphicsDevice.Viewport.Bounds;
     
     // add a modifier to the emitter
     var modifier = new Modifier();
-    modifier.VelocityDelta = new Vector2(200.0f, 200.0f);
+    modifier.VelocityDelta = new Vector2(80.0f, 200.0f);
+    modifier.Enabled = true;
     emitter.Modifiers.Add (modifier);
-    modifier.Enabled = false; // disable the modifier for now
 
 In this example, the emitter will spawn no more than 20 new particles per frame, and no more than 15,000 particles will be active at any one time. Particles will be spawned from a single point on the screen (rather than a rectangular area since the `Width` and `Height` of the rectangle are both zero). New particles will be tinted yellow, orange, or some shade between those two extremes.
 

@@ -4,6 +4,8 @@ category : book-codecamps
 title: "Chapter 16"
 tagline: "Libraries - GamePadEx"
 tags : []
+status: [ready for edit]
+lastReviewedOn: "2015-09-12 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -13,7 +15,7 @@ The mouse, keyboard, touchscreens, and game pads are very different devices, eac
 
 Also, there are many times (especially if you're doing your development on a laptop) when it may not be convenient to carry a controller around.  Wouldn't it be nice to emulate a controller using your keyboard? You could just map some keyboard keys to the game pad buttons and play test your game without ever taking your hands off the keyboard.
 
->**NOTE:** If you'd prefer to attract attention, plug your controller into your laptop at the local WiFi-enabled caf&eacute;. Before I implemented a similar helper class for keyboard support in my games, I *had* to use the controller. Most people assume you're just playing games, but I did meet several aspiring game developers during that time. (*Hi, JT!*)
+>**NOTE:** If you'd prefer to attract attention, plug your controller into your laptop at the local WiFi-enabled caf&eacute;. Before I implemented a similar helper class for keyboard support in my games, I *had* to use the controller. Most people assume you're just playing games, but I did meet several aspiring game developers during that time. (*Hi, @wolfire1992! *)
 
 In this chapter, we'll develop a reusable, keyboard-aware replacement for the standard `GamePad` classes. In addition to mapping keyboard keys to controller buttons, our new component will also relay the states of any actual controllers that are connected. We do this so that the new class can be used as a drop-in replacement for `GamePad`. The game developer won't need to tweak their code to use our new component.
 
@@ -32,21 +34,16 @@ A physical controller supports several analog buttons. Since keyboard keys are d
 
 One of the following constants is reported to the calling code whenever a (always digital) key press is mapped to an analog game pad button:
 
-```csharp
-   // extreme values for the analog GamePad buttons 
-   public const float TRIGGER_MAX = 1.00f;
-   public const float TRIGGER_MIN = 0.00f;
-   public const float THUMBSTICK_MAX = 1.00f;
-   public const float THUMBSTICK_MIN = -1.00f;
-```
+    public const float TRIGGER_MAX = 1.00f;
+    public const float TRIGGER_MIN = 0.00f;
+    public const float THUMBSTICK_MAX = 1.00f;
+    public const float THUMBSTICK_MIN = -1.00f;
 
 ### One Player; Maybe Two
 
 The players who are using the keyboard are playing in a physically-constrained space - it's not the best device to have four players use at the same time. To keep our design simple, we'll restrict our new component to support just one player.
 
 >**NOTE:** The original design for this component, in my 2007 XNA book, provided support for up to two simultaneous players. That was when I knew my target audience was using a full-sized keyboard. I'm not. My MacBook Pro doesn't have a number pad. If you'd like to add another emulated controller, contact me. If there's enough interest, I'll post a version of the code that supports two keyboard-bound players.
-
->Since the keyboard is so cramped, we'll only provide support for one of the analog thumbsticks - the left one - when two players are using the keyboard at the same time. And, as I mentioned earlier, the analog thumbsticks are treated as digital buttons, the left thumbstick will behave as a directional pad would.
 
 ## Getting Started
 
@@ -58,59 +55,34 @@ This helper class provides a keyboard-aware replacement for the standard `GamePa
 
 Our first step is to recreate the existing `GamePad` functionality.
 
-```csharp
-using System;
-
-namespace Microsoft.Xna.Framework.Input
-{
-   public static class GamePadEx
-   {
-      // extreme values for the analog GamePad buttons 
-      public const float TRIGGER_MAX = 1.00f;
-      public const float TRIGGER_MIN = 0.00f;
-      public const float THUMBSTICK_MAX = 1.00f;
-      public const float THUMBSTICK_MIN = -1.00f;
-
-      // set the emulated controller index
-      public static PlayerIndex? KeyboardPlayerIndex { get; set; }
-
-      // is the specified playerIndex the one associated with the keyboard?
-      private static bool IsKeyboardPlayerIndex(PlayerIndex playerIndex) 
-      {
-         return 
-            KeyboardPlayerIndex.HasValue &&
-            KeyboardPlayerIndex.Value == playerIndex;
-      }
-
-      public static GamePadCapabilities GetCapabilities(PlayerIndex playerIndex)
-      {
-         return GamePad.GetCapabilities(playerIndex);
-      }
-
-      public static GamePadState GetState(PlayerIndex playerIndex)
-      {
-         return GamePadEx.GetState (
-            playerIndex, 
-            GamePadDeadZone.IndependentAxes);
-      }
-
-      public static GamePadState GetState(
-         PlayerIndex playerIndex, 
-         GamePadDeadZone deadZoneMode)
-      {
-         return GamePad.GetState (playerIndex, deadZoneMode);
-      }
-
-      public static bool SetVibration(
-         PlayerIndex playerIndex, 
-         float leftMotor, 
-         float rightMotor)
-      {
-         return GamePad.SetVibration (playerIndex, leftMotor, rightMotor);
-      }
-   }
-}
-```
+    using System;
+    
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
+    
+    namespace Codetopia.Xna.Framework.Input
+    {
+        public static class GamePadEx
+        {
+            public static bool SetVibration(
+                PlayerIndex playerIndex, float leftMotor, float rightMotor) {
+                return GamePad.SetVibration (playerIndex, leftMotor, rightMotor);
+            }
+    
+            public static GamePadCapabilitiesEx GetCapabilities (PlayerIndex playerIndex) {
+                return GamePad.GetCapabilities(playerIndex);
+            }
+    
+            public static GamePadState GetState(PlayerIndex playerIndex) {
+                return GamePadEx.GetState (playerIndex, GamePadDeadZone.IndependentAxes);
+            }
+    
+            public static GamePadState GetState(
+                PlayerIndex playerIndex, GamePadDeadZone deadZoneMode) {
+                return GamePad.GetState(playerIndex, deadZoneMode);
+            }
+        }
+    }
 
 It's silly, but we now have a `GamePadEx` class that mimics the MonoGame `GamePad` class exactly. If we wanted to use our new class in place of the built-in class, we need only append an "Ex" to the type declaration. Everything would work exactly as it does today. The controllers would function as expected, and the keyboard would be ignored.
 
@@ -126,268 +98,230 @@ But, wait. The public properties of the `GamePadCapabilities` are marked as `pub
 
 It looks like we'll need to create another structure that mimics `GamePadCapabilities`. That's not ideal, but should be easy enough to implement without requiring the caller (the game developer) to change their code that probes the capabilities of the device.
 
-```csharp
-using System;
-
-namespace Microsoft.Xna.Framework.Input
-{
-   public struct GamePadCapabilitiesEx
-   {
-      public bool IsConnected { get; set; }
-      public bool HasAButton { get; set; }
-      public bool HasBackButton { get; set; }
-      public bool HasBButton { get; set; }
-      public bool HasDPadDownButton { get; set; }
-      public bool HasDPadLeftButton { get; set; }
-      public bool HasDPadRightButton { get; set; }
-      public bool HasDPadUpButton { get; set; }
-      public bool HasLeftShoulderButton { get; set; }
-      public bool HasLeftStickButton { get; set; }
-      public bool HasRightShoulderButton { get; set; }
-      public bool HasRightStickButton { get; set; }
-      public bool HasStartButton { get; set; }
-      public bool HasXButton { get; set; }
-      public bool HasYButton { get; set; }
-      public bool HasBigButton { get; set; }
-      public bool HasLeftXThumbStick { get; set; }
-      public bool HasLeftYThumbStick { get; set; }
-      public bool HasRightXThumbStick { get; set; }
-      public bool HasRightYThumbStick { get; set; }
-      public bool HasLeftTrigger { get; set; }
-      public bool HasRightTrigger { get; set; }
-      public bool HasLeftVibrationMotor { get; set; }
-      public bool HasRightVibrationMotor { get; set; }
-      public bool HasVoiceSupport { get; set; }
-      public GamePadType GamePadType { get; set; }
-     
-   // TODO: add a constructor to copy the values from 
-   //       an existing GamePadCapatilities instance
-   
-   // TODO: add a constructor to populate the values for
-   //       the keyboard; use it to create a static instance
-   
-   }
-}
-```
-
+    using System;
+    using System.Collections.Generic;
+    
+    using Microsoft.Xna.Framework.Input;
+    
+    namespace Codetopia.Xna.Framework.Input
+    {
+        public struct GamePadCapabilitiesEx
+        {
+            public bool IsConnected { get; set; }
+            public bool HasAButton { get; set; }
+            public bool HasBackButton { get; set; }
+            public bool HasBButton { get; set; }
+            public bool HasDPadDownButton { get; set; }
+            public bool HasDPadLeftButton { get; set; }
+            public bool HasDPadRightButton { get; set; }
+            public bool HasDPadUpButton { get; set; }
+            public bool HasLeftShoulderButton { get; set; }
+            public bool HasLeftStickButton { get; set; }
+            public bool HasRightShoulderButton { get; set; }
+            public bool HasRightStickButton { get; set; }
+            public bool HasStartButton { get; set; }
+            public bool HasXButton { get; set; }
+            public bool HasYButton { get; set; }
+            public bool HasBigButton { get; set; }
+            public bool HasLeftXThumbStick { get; set; }
+            public bool HasLeftYThumbStick { get; set; }
+            public bool HasRightXThumbStick { get; set; }
+            public bool HasRightYThumbStick { get; set; }
+            public bool HasLeftTrigger { get; set; }
+            public bool HasRightTrigger { get; set; }
+            public bool HasLeftVibrationMotor { get; set; }
+            public bool HasRightVibrationMotor { get; set; }
+            public bool HasVoiceSupport { get; set; }
+            public GamePadType GamePadType { get; set; }
+    
+            // TODO: add a constructor to copy the values from 
+            //       an existing GamePadCapatilities instance
+            // public GamePadCapabilitiesEx(GamePadCapabilities copy)
+            
+            
+            // TODO: add a constructor to populate the values for
+            //       the keyboard using the keyboard mapping
+            // public GamePadCapabilitiesEx(Dictionary<Keys, Buttons> keyMappings)
+    
+        }
+    }
+       
 The only difference between the MonoGame implementation and ours is that the getters and setters are both now marked as `public`, so we'll be able to tweak them for the keyboard, or copy an existing `GamePadCapabilities` structure's values to our own.
 
 Note the first "TODO:" in the comments. The following code implements a constructor that does just that.
 
-```csharp
-   // TODO: add a constructor to copy the values from 
-   //       an existing GamePadCapatilities instance
-   public GamePadCapabilitiesEx(GamePadCapabilities copy) : this() {
-      this.IsConnected = copy.IsConnected;
-      this.HasAButton = copy.HasAButton;
-      this.HasBackButton = copy.HasBackButton;
-      this.HasBButton = copy.HasBButton;
-      this.HasDPadDownButton = copy.HasDPadDownButton;
-      this.HasDPadLeftButton = copy.HasDPadLeftButton;
-      this.HasDPadRightButton = copy.HasDPadRightButton;
-      this.HasDPadUpButton = copy.HasDPadUpButton;
-      this.HasLeftShoulderButton = copy.HasLeftShoulderButton;
-      this.HasLeftStickButton = copy.HasLeftStickButton;
-      this.HasRightShoulderButton = copy.HasRightShoulderButton;
-      this.HasRightStickButton = copy.HasRightStickButton;
-      this.HasStartButton = copy.HasStartButton;
-      this.HasXButton = copy.HasXButton;
-      this.HasYButton = copy.HasYButton;
-      this.HasBigButton = copy.HasBigButton;
-      this.HasLeftXThumbStick = copy.HasLeftXThumbStick;
-      this.HasLeftYThumbStick = copy.HasLeftYThumbStick;
-      this.HasRightXThumbStick = copy.HasRightXThumbStick;
-      this.HasRightYThumbStick = copy.HasRightYThumbStick;
-      this.HasLeftTrigger = copy.HasLeftTrigger;
-      this.HasRightTrigger = copy.HasRightTrigger;
-      this.HasLeftVibrationMotor = copy.HasLeftVibrationMotor;
-      this.HasRightVibrationMotor = copy.HasRightVibrationMotor;
-      this.HasVoiceSupport = copy.HasVoiceSupport;
-      this.GamePadType = copy.GamePadType;
-   }
-```
+    // TODO: add a constructor to copy the values from 
+    //       an existing GamePadCapatilities instance
+    public GamePadCapabilitiesEx(GamePadCapabilities copy) : this() {
+        this.IsConnected = copy.IsConnected;
+        this.HasAButton = copy.HasAButton;
+        this.HasBackButton = copy.HasBackButton;
+        this.HasBButton = copy.HasBButton;
+        this.HasDPadDownButton = copy.HasDPadDownButton;
+        this.HasDPadLeftButton = copy.HasDPadLeftButton;
+        this.HasDPadRightButton = copy.HasDPadRightButton;
+        this.HasDPadUpButton = copy.HasDPadUpButton;
+        this.HasLeftShoulderButton = copy.HasLeftShoulderButton;
+        this.HasLeftStickButton = copy.HasLeftStickButton;
+        this.HasRightShoulderButton = copy.HasRightShoulderButton;
+        this.HasRightStickButton = copy.HasRightStickButton;
+        this.HasStartButton = copy.HasStartButton;
+        this.HasXButton = copy.HasXButton;
+        this.HasYButton = copy.HasYButton;
+        this.HasBigButton = copy.HasBigButton;
+        this.HasLeftXThumbStick = copy.HasLeftXThumbStick;
+        this.HasLeftYThumbStick = copy.HasLeftYThumbStick;
+        this.HasRightXThumbStick = copy.HasRightXThumbStick;
+        this.HasRightYThumbStick = copy.HasRightYThumbStick;
+        this.HasLeftTrigger = copy.HasLeftTrigger;
+        this.HasRightTrigger = copy.HasRightTrigger;
+        this.HasLeftVibrationMotor = copy.HasLeftVibrationMotor;
+        this.HasRightVibrationMotor = copy.HasRightVibrationMotor;
+        this.HasVoiceSupport = copy.HasVoiceSupport;
+        this.GamePadType = copy.GamePadType;
+    }
 
-Note the second "TODO:" in the comments. The following code implements a constructor and member variable that does just that.
+Note the second "TODO:" in the comments. The following code implements a constructor and member variable that does just that. We'll return it whenever the capabilities for the keyboard "controller" are requested.
 
-Also note that this constructor is marked as `private`. That means that we'll be creating just one instance of the `GamePadCapabilitiesEx` class for the keyboard - `KeyboardCapabilities`. We'll return it whenever the capabilities for the keyboard "controller" are requested.
-
-```csharp
-   // TODO: add a constructor to populate the values for
-   //       the keyboard; use it to create a static instance
-   private static readonly GamePadCapabilitiesEx
-      KeyboardCapabilities = new GamePadCapabilitiesEx(true);
-   
-   private GamePadCapabilitiesEx(bool isKeyboard) : this() {
-      this.IsConnected = true;
-      this.HasAButton = true;
-      this.HasBackButton = true;
-      this.HasBButton = true;
-      this.HasDPadDownButton = true;
-      this.HasDPadLeftButton = true;
-      this.HasDPadRightButton = true;
-      this.HasDPadUpButton = true;
-      this.HasLeftShoulderButton = false;
-      this.HasLeftStickButton = false;
-      this.HasRightShoulderButton = false;
-      this.HasRightStickButton = false;
-      this.HasStartButton = true;
-      this.HasXButton = true;
-      this.HasYButton = true;
-      this.HasBigButton = false;
-      this.HasLeftXThumbStick = true;
-      this.HasLeftYThumbStick = true;
-      this.HasRightXThumbStick = true;
-      this.HasRightYThumbStick = true;
-      this.HasLeftTrigger = true;
-      this.HasRightTrigger = true;
-      this.HasLeftVibrationMotor = false;
-      this.HasRightVibrationMotor = false;
-      this.HasVoiceSupport = false;
-      this.GamePadType = GamePadType.GamePad;
-   }
-```
+    // TODO: add a constructor to populate the values for
+    //       the keyboard using the keyboard mapping
+    public GamePadCapabilitiesEx(Dictionary<Keys, Buttons> keyMappings) : this() {
+        this.IsConnected = true;
+        this.HasAButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasBackButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasBButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasDPadDownButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasDPadLeftButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasDPadRightButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasDPadUpButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasLeftShoulderButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasLeftStickButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasRightShoulderButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasRightStickButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasStartButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasXButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasYButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasBigButton = keyMappings.ContainsValue(Buttons.A);
+        this.HasLeftXThumbStick = keyMappings.ContainsValue(Buttons.A);
+        this.HasLeftYThumbStick = keyMappings.ContainsValue(Buttons.A);
+        this.HasRightXThumbStick = keyMappings.ContainsValue(Buttons.A);
+        this.HasRightYThumbStick = keyMappings.ContainsValue(Buttons.A);
+        this.HasLeftTrigger = keyMappings.ContainsValue(Buttons.A);
+        this.HasRightTrigger = keyMappings.ContainsValue(Buttons.A);
+        this.HasLeftVibrationMotor = false;
+        this.HasRightVibrationMotor = false;
+        this.HasVoiceSupport = false;
+        this.GamePadType = GamePadType.GamePad;
+    }
 
 We have this new class to represent a standard `GamePadCapabilities` instance, which happens to also be keyboard-aware. How do we use it? 
 
-We need to return the keyboard capabilities if the `playerIndex` matches the player index of the emulated controller, and return the specified controller's capabilities otherwise. So, we need to tweak the `GetCapabilities` method of our `GamePadEx` class. It currently reads as follows.
+We need to return the keyboard capabilities if the `playerIndex` matches the player index of the emulated controller, and return the specified controller's capabilities otherwise. We'll need a way to know if the specified player index is the keyboard-aware index.
+ 
+    // set the emulated controller index
+    public static PlayerIndex? KeyboardPlayerIndex { get; set; }
+    
+    // is the specified playerIndex the one associated with the keyboard?
+    private static bool IsKeyboardPlayerIndex(PlayerIndex playerIndex) 
+    {
+        return 
+            KeyboardPlayerIndex.HasValue &&
+            KeyboardPlayerIndex.Value == playerIndex;
+    }
 
-```csharp
-   public static GamePadCapabilities GetCapabilities(PlayerIndex playerIndex)
-   {
-      return GamePad.GetCapabilities(playerIndex);
-   }
-```
 
-It should now read as follows.
+Now we can tweak the `GetCapabilities` method of our `GamePadEx` class to change its behavior if the specified player index is the keyboard-aware index. 
 
-```csharp
-   public static GamePadCapabilitiesEx GetCapabilities(PlayerIndex playerIndex)
-   {
-      if(GamePadEx.IsKeyboardPlayerIndex(playerIndex))
-      {
-         return GamePadCapabilitiesEx.KeyboardCapabilities;
-      } else {
-         return
-            new GamePadCapabilitiesEx(GamePad.GetCapabilities(playerIndex));
-      }
-   }
-```
+    public static Dictionary<Keys, Buttons> KeyMappings = new Dictionary<Keys, Buttons>();
+
+    public static GamePadCapabilitiesEx GetCapabilities (PlayerIndex playerIndex) {
+        GamePadCapabilitiesEx? result = null;
+    
+        if (IsKeyboardPlayerIndex (playerIndex)) {
+            result = new GamePadCapabilitiesEx (GamePadEx.KeyMappings);
+        } else {
+            try {
+                result = new GamePadCapabilitiesEx(GamePad.GetCapabilities(playerIndex));
+            } catch { }
+        }
+    
+        return result.HasValue ? result.Value : new GamePadCapabilitiesEx ();
+    }
 
 With that change in place, the `GetCapabilities` method is now keyboard-aware.
 
 ### GamePadEx.GetState
 
-This is where the real fun begins. We need to map keyboard keys to game pad buttons, sticks, and triggers.
+This is where the real fun begins. We need to map keyboard keys to game pad buttons, sticks, and triggers. Let's start by updating the `GetState` methods to look like this.
 
->**NOTE:** The original design for this component, in my 2007 XNA book, provided a way to configure which keys mapped to which buttons. This time around, though, I'm just going to map the keys via code.
+    public static GamePadState GetState(PlayerIndex playerIndex) {
+        return GamePadEx.GetState (playerIndex, GamePadDeadZone.IndependentAxes);
+    }
+    
+    public static GamePadState GetState(PlayerIndex playerIndex, GamePadDeadZone deadZoneMode) {
+        GamePadState? result = null;
+    
+        try {
+            if(!IsKeyboardPlayerIndex(playerIndex)) {
+                result = GamePad.GetState(playerIndex, deadZoneMode);
+            } else {
+                var keyboardState = Keyboard.GetState();
+                var pressedButtons = new List<Buttons>();
+                foreach(Keys key in keyboardState.GetPressedKeys()) {
+                    if(GamePadEx.KeyMappings.ContainsKey(key)) {
+                        pressedButtons.Add(GamePadEx.KeyMappings[key]);
+                    }
+                }
+    
+                var leftThumbstick = Vector2.Zero;
+                if(pressedButtons.Contains(Buttons.DPadUp)) {
+                    leftThumbstick.Y = THUMBSTICK_MAX;
+                } else if(pressedButtons.Contains(Buttons.DPadDown)) {
+                    leftThumbstick.Y = THUMBSTICK_MIN;
+                }
+                if(pressedButtons.Contains(Buttons.DPadRight)) {
+                    leftThumbstick.X = THUMBSTICK_MAX;
+                } else if(pressedButtons.Contains(Buttons.DPadLeft)) {
+                    leftThumbstick.X = THUMBSTICK_MIN;
+                }
+    
+                result = new GamePadState(
+                    leftThumbstick,
+                    Vector2.Zero, // Right Thumbstick
+                    0.0f, // Left Trigger
+                    0.0f, // Right Trigger
+                    pressedButtons.ToArray());
+                }
+        } catch { }
+    
+        return result.HasValue ? result.Value : GamePadState.Default;
+    }
 
->If you'd like to see configurable key-to-button mappings, contact me. If there's enough interest, I'll post a version of the code that supports configurable button mappings.
+As written, our `GamePadEx` would pass through the controller data for connected controllers, but the keyboard controller will always behave as if no inputs are being touched. We haven't declared the key mappings yet. Let's add them now.
 
-Let's start by updating the `GetState` methods to look like this, adding a new, private `EmulateGamePadState` method.
+    static GamePadEx() {
+        KeyMappings = KEY_MAPPINGS_PROFILE_1;
+    }
+    
+    public static readonly Dictionary<Keys, Buttons> KEY_MAPPINGS_PROFILE_1 = new Dictionary<Keys, Buttons> {
+        { Keys.W, Buttons.DPadUp },
+        { Keys.S, Buttons.DPadDown },
+        { Keys.A, Buttons.DPadLeft },
+        { Keys.D, Buttons.DPadRight },
+        { Keys.Up, Buttons.DPadUp },
+        { Keys.Down, Buttons.DPadDown },
+        { Keys.Left, Buttons.DPadLeft },
+        { Keys.Right, Buttons.DPadRight },
+        { Keys.Space, Buttons.A },
+        { Keys.RightControl, Buttons.B },
+        { Keys.Enter, Buttons.Start },
+        { Keys.Escape, Buttons.Back },
+        { Keys.Back, Buttons.Back },
+    };
 
-```csharp
-   public static GamePadState GetState(PlayerIndex playerIndex)
-   {
-      return GamePadEx.GetState(
-            playerIndex, 
-         GamePadDeadZone.IndependentAxes);
-   }
+The selection for mapping keyboard keys to controller buttons was arbitrary. I wanted easy access for using both the left thumbstick and DPad, pressing A, or pressing B. The escape key felt like a natural fit for `Back`, and the enter key felt like a natural fit for `Start`.
 
-   public static GamePadState GetState(
-      PlayerIndex playerIndex, 
-      GamePadDeadZone deadZoneMode)
-   {
-      if(GamePadEx.IsKeyboardPlayerIndex(playerIndex))
-      {
-         return GamePadEx.EmulateGamePadState();
-      } else {
-         return GamePad.GetState (playerIndex, deadZoneMode);
-      }
-   }
-
-   // TODO: populate the GamePadState from KeyboardState data
-   private static GamePadState EmulateGamePadState()
-   {
-      return GamePadState.Default;
-   }
-```
-
-As written, our `GamePadEx` would pass through the controller data for connected controllers, but the keyboard controller will always behave as if no inputs are being touched. Let's add the code to map keyboard keys to controller inputs.
-
-```csharp
-   // TODO: populate the GamePadState from KeyboardState data
-   private static GamePadState EmulateGamePadState()
-   {
-      var keyState = Keyboard.GetState ();
-
-      var leftTrigger = keyState.IsKeyDown(Keys.LeftAlt) ?
-         TRIGGER_MAX : TRIGGER_MIN;
-      var rightTrigger = keyState.IsKeyDown(Keys.RightAlt) ?
-         TRIGGER_MAX : TRIGGER_MIN;
-
-      var dPadUp = keyState.IsKeyDown(Keys.W) ?
-         ButtonState.Pressed : ButtonState.Released;
-      var dPadDown = keyState.IsKeyDown(Keys.S) ?
-         ButtonState.Pressed : ButtonState.Released;
-      var dPadLeft = keyState.IsKeyDown(Keys.A) ?
-         ButtonState.Pressed : ButtonState.Released;
-      var dPadRight = keyState.IsKeyDown(Keys.D) ?
-         ButtonState.Pressed : ButtonState.Released;
-
-      // mimic DPad
-      var leftThumbstick = Vector2.Zero;
-      if (dPadUp == ButtonState.Pressed) {
-         leftThumbstick.Y = THUMBSTICK_MAX;
-         dPadDown = ButtonState.Released;
-      } else if (dPadDown == ButtonState.Pressed) {
-         leftThumbstick.Y = THUMBSTICK_MIN;
-         dPadUp = ButtonState.Released;
-      }
-      if (dPadLeft == ButtonState.Pressed) {
-         leftThumbstick.X = THUMBSTICK_MIN;
-         dPadRight = ButtonState.Released;
-      } else if (dPadRight == ButtonState.Pressed) {
-         leftThumbstick.X = THUMBSTICK_MAX;
-         dPadLeft = ButtonState.Released;
-      }
-
-      var rightThumbstick = Vector2.Zero;
-      if (keyState.IsKeyDown(Keys.Down)) {
-         rightThumbstick.Y = THUMBSTICK_MIN;
-      } else if (keyState.IsKeyDown(Keys.Up)) {
-         rightThumbstick.Y = THUMBSTICK_MAX;
-      }
-      if (keyState.IsKeyDown(Keys.Left)) {
-         rightThumbstick.X = THUMBSTICK_MIN;
-      } else if (keyState.IsKeyDown(Keys.Right)) {
-         rightThumbstick.X = THUMBSTICK_MAX;
-      }
-
-      Buttons buttons = 0;
-      if (keyState.IsKeyDown (Keys.Space)) 
-         { buttons |= Buttons.A; }
-      if (keyState.IsKeyDown (Keys.RightControl)) 
-         { buttons |= Buttons.B; }
-      if (keyState.IsKeyDown (Keys.PageDown)) 
-         { buttons |= Buttons.X; }
-      if (keyState.IsKeyDown (Keys.PageUp)) 
-         { buttons |= Buttons.Y; }
-      if (keyState.IsKeyDown (Keys.Escape)) 
-         { buttons |= Buttons.Back; }
-      if (keyState.IsKeyDown (Keys.Enter)) 
-         { buttons |= Buttons.Start; }
-
-      return new GamePadState(
-         new GamePadThumbSticks(leftThumbstick, rightThumbstick), 
-         new GamePadTriggers(leftTrigger, rightTrigger), 
-         new GamePadButtons(buttons),
-         new GamePadDPad(dPadUp, dPadDown, dPadLeft, dPadRight));
-   }
-```
-
-The selection for mapping keyboard keys to controller buttons was arbitrary. I wanted easy access for using both thumbsticks, pressing A, or pressing B. The escape key felt like a natural fit for `Back`, and the enter key felt like a natural fit for `Select`.
-
-There's nothing preventing you from mapping several keyboard keys to the same controller button. For example, if your game uses the left thumbstick and ALL four of the A, B, X, Y buttons but makes little use of the right thumbstick, it might make more sense to map the I, J, K, and L keys to the colored buttons.
+There's nothing preventing you from mapping several keyboard keys to the same controller button. For example, the current mapping associates both `W` and `Up` with `DPadUp`.
 
 ### GamePadEx.SetVibration
 
@@ -399,22 +333,25 @@ In fact, the framework documentation says that querying the state of a disconnec
 
 Just replace the existing `SetVibration` method in our `GamePadEx` class with the following code to make it keyboard-aware.
 
-```csharp
-      public static bool SetVibration(
-         PlayerIndex playerIndex, 
-         float leftMotor, 
-         float rightMotor)
-      {
-         if(GamePadEx.IsKeyboardPlayerIndex(playerIndex)) {
-            return false;
-         } else {
-            return GamePad.SetVibration (
-               playerIndex, 
-               leftMotor, 
-               rightMotor);
-         }
-      }
-```
+    public static bool SetVibration(
+        PlayerIndex playerIndex, 
+        float leftMotor, 
+        float rightMotor)
+    {
+        var result = false;
+        if (!IsKeyboardPlayerIndex (playerIndex)) {
+            try {
+                result = GamePad.SetVibration (playerIndex, leftMotor, rightMotor);
+            } catch { }
+        }
+        return result;
+    }
+
+That's it. We now have a drop-in replacement for the controller that's also keyboard-aware.
+
+>**NOTE:** As of this writing, there's a bug in the MonoGame input logic that throws an exception when you query the state of a controller that's not connected. That's clearly not the intended behavior, since you have to query to the controller to see if it's connected in the first place.
+
+> In my XNA book, I included a section on optimization. It said to only use exceptions in exceptional cases. That's still my philosophy, but having the game crash on the first call to `Update` isn't an option.
 
 ## Summary
 

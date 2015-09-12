@@ -35,6 +35,13 @@
 <hr />
 {% endif %}
 
+{% if page.status contains 'ready for edit' %}
+<div class="alert alert-success"><h2><i class="glyphicon glyphicon-thumbs-up"></i> Ready for Edit</h2><p>The following content is complete draft and is ready for edit, but the text, diagrams, and code samples you see here have not been through any form of formal grooming (e.g. editing or technical review). You may find errors or inconsistencies. If you would like to report a potential issue with this text, please <a href="https://github.com/groundh0g/codecamps-book/issues" target="_blank">click here</a>. Your help is most appreciated!</p>
+{% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
+</div>
+<hr />
+{% endif %}
+
 <div class="page-header">
   <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
 </div>
