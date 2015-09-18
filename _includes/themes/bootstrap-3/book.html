@@ -15,21 +15,21 @@
 {% endif %}
 
 {% if isDraft %}
-<div class="alert alert-success"><h2><i class="glyphicon glyphicon-pencil"></i> Draft Content</h2><p>The following text, diagrams, and code samples have not been through any form of formal grooming (e.g. editing or technical review). It may contain content that is inaccurate. You may find errors or inconsistencies. If you would like to report a potential issue with this text, please <a href="https://github.com/groundh0g/codecamps-book/issues" target="_blank">click here</a>. Your help is most appreciated!</p>
+<div class="alert alert-info"><h2><i class="glyphicon glyphicon-warning-sign"></i> Draft Content</h2><p>The following text, diagrams, and code samples have not been through any form of formal grooming (e.g. editing or technical review). It may contain content that is inaccurate. You may find errors or inconsistencies. If you would like to report a potential issue with this text, please <a href="https://github.com/groundh0g/codecamps-book/issues" target="_blank">click here</a>. Your help is most appreciated!</p>
 {% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
 </div>
 <hr />
 {% endif %}
 
 {% if page.status contains 'placeholder' %}
-<div class="alert alert-success"><h2><i class="glyphicon glyphicon-warning-sign"></i> Placeholder Content</h2><p>The following content is just a placeholder.</p>
+<div class="alert alert-danger"><h2><i class="glyphicon glyphicon-inbox"></i> Placeholder Content</h2><p>The following content is just a placeholder.</p>
 {% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
 </div>
 <hr />
 {% endif %}
 
 {% if page.status contains 'stub' %}
-<div class="alert alert-success"><h2><i class="glyphicon glyphicon-inbox"></i> Stub Content</h2><p>The following content is just a stub. Some of the content may appear to be ready for prime time, but the text and images are likely to change as I make more and more passes through the chapter.</p>
+<div class="alert alert-warning"><h2><i class="glyphicon glyphicon-pencil"></i> Stub Content</h2><p>The following content is just a stub. Some of the content may appear to be ready for prime time, but the text and images are likely to change as I make more and more passes through the chapter.</p>
 {% if lastReviewedDate %}<p>This content was last reviewed on {{ lastReviewedDate | date: '%B %d, %Y' }}.</p>{% endif %}
 </div>
 <hr />

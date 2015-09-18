@@ -5,7 +5,7 @@ title: "Chapter 19"
 tagline: "Libraries - Particles"
 tags : []
 status: [ready for edit]
-lastReviewedOn: "2015-09-12 00:00:00 -0500"
+lastReviewedOn: "2015-09-18 00:00:00 -0500"
 ---
 {% include JB/setup %}
 

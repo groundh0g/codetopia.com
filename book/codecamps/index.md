@@ -29,7 +29,7 @@ If you're the kind of person that likes statistics, here's the current status of
 {% assign chapterCount = 0 %}
 
 <p><table border="0" cellpadding="0" cellspacing="0" style="margin-left:20px;">
-<tr><td><b>TITLE</b></td><td>&nbsp;&nbsp;<b>WORDS</b></td><td>&nbsp;&nbsp;<b>STATUS</b></td><td>&nbsp;&nbsp; <b>UPDATED</b></td></tr>
+<tr><td><b>TITLE</b></td><td>&nbsp;&nbsp;<b>WORDS</b></td><td>&nbsp;&nbsp;<b>STATUS</b></td><td>&nbsp;</td><td>&nbsp;&nbsp; <b>UPDATED</b></td></tr>
 {% for pg in site.pages %}
     {% if pg.layout == 'book' %}
       {% if pg.url == page.url %}
@@ -49,17 +49,35 @@ If you're the kind of person that likes statistics, here's the current status of
         {% if difNumber > 0 %}
             {% assign recentReview = true %}
         {% endif %}
-        
 
         {% assign newCount = pg.content | number_of_words %}
         {% assign wordCount = wordCount | plus: newCount %}
         {% assign chapterCount = chapterCount | plus: 1 %}
         {% assign pageStatus = pg.status %}
         {% if pageStatus == nil %}{% assign pageStatus = 'draft' %}{% endif %}
+
+        {% assign labelStatus = 'danger' %}
+        {% assign labelIcon = 'pencil' %}
+
+        {% if pageStatus contains 'ready for edit' %}
+            {% assign labelStatus = 'success' %}
+            {% assign labelIcon = 'thumbs-up' %}
+        {% elsif pageStatus contains 'draft' %}
+            {% assign labelStatus = 'primary' %}
+            {% assign labelIcon = 'warning-sign' %}
+        {% elsif pageStatus contains 'stub' %}
+            {% assign labelStatus = 'warning' %}
+            {% assign labelIcon = 'pencil' %}
+        {% else %}
+            {% assign labelStatus = 'danger' %}
+            {% assign labelIcon = 'inbox' %}
+        {% endif %}
+
         <tr>
             <td><a href="{{ pg.url }}"><b>{{ pg.title }}</b> <small>{{ pg.tagline }}</small></a></td>
             <td>&nbsp;&nbsp;{{ newCount }}</td>
             <td>&nbsp;&nbsp;{{ pageStatus }}</td>
+            <td>&nbsp;&nbsp;<span class="label label-{{ labelStatus }}"><i class="glyphicon glyphicon-{{ labelIcon }}"></i></span></td>
             <td>&nbsp;&nbsp;
                 {% if recentReview %}
                   <i>

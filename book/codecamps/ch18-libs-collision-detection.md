@@ -4,7 +4,8 @@ category : book-codecamps
 title: "Chapter 18"
 tagline: "Libraries - Collision Detection"
 tags : []
-lastReviewedOn: "2015-09-04 00:00:00 -0500"
+status: [ready for edit]
+lastReviewedOn: "2015-09-18 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -55,29 +56,31 @@ It's a complete waste of time and resources to check for collisions, pixel by pi
 The `PixelPerfectHelper` class contains a collection of static methods to help us detect 2D collisions.
 
     using System;
+    
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     
-    namespace MoreOnCode.Graphics
+    using Codetopia.Xna.Lib.Util.Collision;
+
+    namespace Codetopia.Xna.Lib.Util
     {
-      public class PixelPerfectHelper
-      {
-         // TODO: Implement GetOpaqueData
-         public static bool[,] GetOpaqueData(
-            Texture2D texture, Rectangle rect, byte threshold)
-         {
-            return null;
-         }
+        public static class CollisionUtil
+        {
+            // TODO: Implement GetOpaqueData
+            public static bool[,] GetOpaqueData(
+                Texture2D texture, Rectangle rect, byte threshold)
+            {
+                return null;
+            }
     
-         // TODO: Implement DetectCollision
-         public static bool DetectCollision(
-            Rectangle rect1, Vector2 loc1, bool[,] data1,
-            Rectangle rect2, Vector2 loc2, bool[,] data2)
-         {
-            return false;
-         }
-    
-      }
+            // TODO: Implement DetectCollision
+            public static bool DetectCollision(
+                Rectangle rect1, Vector2 loc1, bool[,] data1,
+                Rectangle rect2, Vector2 loc2, bool[,] data2)
+            {
+                return false;
+            }
+        }
     }
 
 ### GetOpaqueData
@@ -295,46 +298,43 @@ This is the routine where pixel-by-pixel comparisons are performed. First, we ca
 To keep our parameter lists small, we'll make sure that the game's custom sprite class implements the `IPixelPerfectSprite` interface.
 
     using System;
+    
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     
-    namespace MoreOnCode.Graphics
+    namespace Codetopia.Xna.Lib.Util.Collision
     {
-      // a handy interface to allow you to pass your game sprite 
-      // into these helper methods, saving some typing in your 
-      // parameter lists
-      public interface IPixelPerfectSprite
-      {
-         Texture2D TextureData { get; set; }
-         Rectangle TextureRect { get; set; }
-         Vector2 Location { get; set; }
-         bool[,] OpaqueData { get; set; }
-      }
+        public interface IPixelPerfectSprite
+        {
+            Texture2D TextureData { get; set; }
+            Rectangle TextureRect { get; set; }
+            Vector2 Location { get; set; }
+            bool[,] OpaqueData { get; set; }
+        }
     }
 
 That interface exposes all of the sprite properties that we'll need to perform collision detection. The following is an example class that implements the interface.
 
     using System;
+    
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     
-    namespace MoreOnCode.Graphics
+    namespace Codetopia.Xna.Lib.Util.Collision
     {
-      // a handy class to allow you to refer to your sprite
-      // and its associated data in one instance
-      public class GameSprite : IPixelPerfectSprite 
-      {
-         public Texture2D TextureData { get; set; }
-         public Rectangle TextureRect { get; set; }
-         public Vector2 Location { get; set; }
-         public bool[,] OpaqueData { get; set; }
+        public class GameSprite
+        {
+            public Texture2D TextureData { get; set; }
+            public Rectangle TextureRect { get; set; }
+            public Vector2 Location { get; set; }
+            public bool[,] OpaqueData { get; set; }
     
-         // draw this sprite, using current settings, and specified tint
-         public void Draw(SpriteBatch batch, Color color)
-         {
-            batch.Draw(TextureData, Location, TextureRect, color);
-         }
-      }
+            // draw this sprite, using current settings, and specified tint
+            public void Draw(SpriteBatch batch, Color color)
+            {
+                batch.Draw(TextureData, Location, TextureRect, color);
+            }
+        }
     }
 
 ## Our Game

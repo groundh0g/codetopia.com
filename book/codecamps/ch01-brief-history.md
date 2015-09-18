@@ -4,6 +4,7 @@ category : book-codecamps
 title: "Chapter 1"
 tagline: "a Brief History"
 tags : []
+lastReviewedOn: "2015-09-13 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -13,7 +14,7 @@ This chapter provides a good overview of the technologies upon which MonoGame is
 
 ## What is MonoGame?
 
-MonoGame is an open source implementation of the Microsoft XNA 4.x API that can be used to create cross-platform games (or to easily port existing XNA-based Windows, Windows Phone, and Xbox 360 games to other platforms) using the C# language. Currently supported platforms include Windows GL, Windows Phone, Windows 8, Mac OS X, Linux, Android, iOS, PlayStation Mobile, and the OUYA console.
+MonoGame is an open source implementation of the Microsoft XNA 4.x API that can be used to create cross-platform games (or to easily port existing XNA-based Windows, Windows Phone, and Xbox 360 games to other platforms) using the C# language.
 
 Under the covers, MonoGame is powered by OpenTK (a C# library that wraps OpenGL, OpenCL, and OpenAL), SharpDX (a C#-compatible wrapper to the DirectX APIs), and Lidgren.Network (a C#-compatible networking API). These technologies are what enable MonoGame to support so many disparate platforms.
 
@@ -23,9 +24,7 @@ In 2005, Microsoft released a line of products for hobbyists, students, and novi
 
 These free tools allow the average home user to explore and experiment with software development without having to invest a lot of (or in most cases, any) money. You can develop utilities, desktop applications, websites, relational databases, and more using tools that have traditionally retailed for hundreds of dollars.
 
-In the summer of 2006, Microsoft released another Express tool, targeting aspiring hobbyist and student game developers. That new tool was called XNA Game Studio Express. XNA provided a suite of tools and APIs that combined the power of DirectX with the ease-of-use of the .NET Framework, all accessed via managed code, using the C# programming language.
-
-Popular among hobbyists, enthusiasts, and independent game development studios, XNA has been actively developed by Microsoft through four major versions, and it remains a supported toolset for game development on Windows, Windows Phone, and the Xbox 360 game console.
+In the summer of 2006, Microsoft released another Express tool, targeting aspiring hobbyist and student game developers. That new tool was called XNA Game Studio Express. XNA provided a suite of tools and APIs that combined the power of DirectX with the ease-of-use of the .NET Framework, all accessed via managed code, using the C# programming language. Popular among hobbyists, enthusiasts, and independent game development studios, XNA has been actively developed by Microsoft through four major versions.
 
 ## Why Not Just Use XNA?
 
