@@ -184,7 +184,7 @@ Once we have our opacity data, we can start checking for sprite collisions. The 
          }
 
          // TODO: Implement BoundsOverlap
-         protected static bool BoundsOverlap(
+         private static bool BoundsOverlap(
             Rectangle rect1, Vector2 loc1,
             Rectangle rect2, Vector2 loc2)
          {
@@ -192,7 +192,7 @@ Once we have our opacity data, we can start checking for sprite collisions. The 
          }
 
          // TODO: Implement PixelsTouch
-         protected static bool PixelsTouch(
+         private static bool PixelsTouch(
             Rectangle rect1, Vector2 loc1, bool[,] data1,
             Rectangle rect2, Vector2 loc2, bool[,] data2)
          {
@@ -217,7 +217,7 @@ If the first sprite is fully to the left, fully to the right, fully above, or fu
 
          // see if the texture rectangles overlap, if they don't, there's
          // no need to do a pixel-by-pixel comparison
-         protected static bool BoundsOverlap(
+         private static bool BoundsOverlap(
             Rectangle rect1, Vector2 loc1,
             Rectangle rect2, Vector2 loc2)
          {
@@ -254,7 +254,7 @@ This is the routine where pixel-by-pixel comparisons are performed. First, we ca
          // REPLACE PLACEHOLDER CODE WITH THE FOLLOWING
 
          // perform a pixel-by-pixel comparison
-         protected static bool PixelsTouch(
+         private static bool PixelsTouch(
             Rectangle rect1, Vector2 loc1, bool[,] data1,
             Rectangle rect2, Vector2 loc2, bool[,] data2)
          {
