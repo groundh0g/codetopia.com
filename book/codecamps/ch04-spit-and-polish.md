@@ -2,9 +2,10 @@
 layout: book
 category : book-codecamps
 title: "Chapter 4"
-tagline: "Spit and Polish"
+tagline: "Tools, Spit, and Polish"
 tags : []
 status: [placeholder]
+lastReviewedOn: "2015-12-07 00:00:00 -0500"
 ---
 {% include JB/setup %}
 

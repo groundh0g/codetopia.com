@@ -18,8 +18,6 @@ The font picker dialog now supports selecting fonts, highlighting filtered field
 
 There are still a number of fonts that don't properly load. The error logs indicate that the fonts are corrupt. I doubt that. I think the browser is just a bit pickier than the OS. I've been able to use those fonts in other apps. I'm making a note to research at a later time, and I'm leaving the errant fonts in the collection in the hopes that I'll be able to resolve whatever the issue is.
 
-For the curious, you can check out the current iteration of the font picker dialog by visiting [the test page](http://fpack.moreoncode.com/fontsPreview-OLD.html) and clicking the `Popup` button.
-
 If you know of any sources for free-for-commercial-use fonts, feel free to leave a link in the comments. I appreciate your help. I'm currently pulling fonts from the following sources:
 
 * [Google Fonts](https://www.google.com/fonts)

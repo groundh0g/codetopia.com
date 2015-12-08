@@ -4,7 +4,7 @@ category : book-codecamps
 title: "Preface"
 tagline: "the Volume"
 tags : []
-lastReviewedOn: "2015-08-01 00:00:00 -0500"
+lastReviewedOn: "2015-12-07 00:00:00 -0500"
 ---
 {% include JB/setup %}
 
@@ -101,11 +101,11 @@ We begin with a blank screen, load an image, move the image programmatically, th
 
 After you complete this chapter, you'll be able to jump to any of the following chapters that capture your interest. But you might want to take a look at the next chapter first. It gives a little insight into the dreaded "last 20% of the project" - the bells and whistles.
 
-## Chapter 4: Spit and Polish
+## Chapter 4: Tools, Spit, and Polish
 
 We built a playable game in the previous chapter, but it's not exactly store-worthy. I'm not saying that it ever will be, but there are some obvious changes that we can make to give the game a more professional feel. 
 
-Building on the game from the last chapter, we'll add music, sound effects, visual effects, and multiple screen types. We'll also introduce the concepts of sprite sheets and basic particles.
+Building on the game from the last chapter, we'll add music, sound effects, visual effects, and multiple screen types. We'll also introduce the concepts of sprite sheets and basic particles. Stitching sprite sheets by hand is inefficient and prone to error. This chapter walks you through using FannyPack, an open-source squite of game development tools by yours truly, to create sprite sheets and bitmap fonts for your games.
 
 After you complete this chapter, you'll be able to jump to any of the following chapters that capture your interest.
 

@@ -61,23 +61,23 @@ If you're the kind of person that likes statistics, here's the current status of
 
         {% if pageStatus contains 'ready for edit' %}
             {% assign labelStatus = 'success' %}
-            {% assign labelIcon = 'thumbs-up' %}
+            {% assign labelIcon = 'icon-edit' %}
         {% elsif pageStatus contains 'draft' %}
             {% assign labelStatus = 'primary' %}
-            {% assign labelIcon = 'warning-sign' %}
+            {% assign labelIcon = 'icon-file-alt' %}
         {% elsif pageStatus contains 'stub' %}
             {% assign labelStatus = 'warning' %}
-            {% assign labelIcon = 'pencil' %}
+            {% assign labelIcon = 'icon-tag' %}
         {% else %}
             {% assign labelStatus = 'danger' %}
-            {% assign labelIcon = 'inbox' %}
+            {% assign labelIcon = 'icon-exclamation' %}
         {% endif %}
 
         <tr>
             <td><a href="{{ pg.url }}"><b>{{ pg.title }}</b> <small>{{ pg.tagline }}</small></a></td>
             <td>&nbsp;&nbsp;{{ newCount }}</td>
             <td>&nbsp;&nbsp;{{ pageStatus }}</td>
-            <td>&nbsp;&nbsp;<span class="label label-{{ labelStatus }}"><i class="glyphicon glyphicon-{{ labelIcon }}"></i></span></td>
+            <td>&nbsp;&nbsp;<span class="label label-{{ labelStatus }}"><i class="xfa xfa-{{ labelIcon }}">&nbsp;</i></span></td>
             <td>&nbsp;&nbsp;
                 {% if recentReview %}
                   <i>
